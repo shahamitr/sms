@@ -112,11 +112,11 @@
 							  </thead><tbody>';
 					
 						while($row = mysqli_fetch_assoc($result)){
-							
+								$password = hash('md5',$row["password"]);
 								echo '<tr>';
 								  echo '<th scope="row">'.++$student_index.'</th>';
 								  echo '<td>'.$row["username"].'</td>';
-								  echo '<td>'.$row["password"].'</td>';
+								  echo '<td>'.$password.'</td>';
 								  echo '<td>'.$row["type"].'</td>';
 								  echo '<td>'.$row["date_created"].'</td>';
 								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-circle-o" aria-hidden="true"></i>
