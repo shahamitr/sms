@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2020 at 07:49 AM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Generation Time: Jul 25, 2020 at 10:39 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -38,7 +37,7 @@ CREATE TABLE `faculty_info` (
   `state` varchar(10) NOT NULL COMMENT 'No default value for state',
   `country` varchar(15) NOT NULL DEFAULT 'India' COMMENT 'Default country is india',
   `is_active` enum('0','1') NOT NULL DEFAULT '0',
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -58,14 +57,6 @@ INSERT INTO `faculty_info` (`id`, `name`, `surname`, `gender`, `dob`, `city`, `s
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fees`
---
--- Error reading structure for table students.fees: #1932 - Table 'students.fees' doesn't exist in engine
--- Error reading data for table students.fees: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `students`.`fees`' at line 1
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `student_info`
 --
 
@@ -79,9 +70,9 @@ CREATE TABLE `student_info` (
   `state` varchar(10) NOT NULL COMMENT 'No default value for state',
   `country` varchar(15) NOT NULL DEFAULT 'India' COMMENT 'Default country is india',
   `current_status` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1=Active, 0=Inactive',
-  `is_deleted` int(1) NOT NULL DEFAULT '0',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `is_deleted` int(1) NOT NULL DEFAULT 0,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -109,6 +100,7 @@ CREATE TABLE `user_master` (
   `password` varchar(15) NOT NULL,
   `type` enum('1','2','3') NOT NULL COMMENT '1=admin 2=student 3=faculty',
   `is_active` enum('0','1') NOT NULL DEFAULT '0',
+  `is_deleted` int(1) NOT NULL DEFAULT 0,
   `date_created` datetime NOT NULL,
   `last_login` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -117,10 +109,13 @@ CREATE TABLE `user_master` (
 -- Dumping data for table `user_master`
 --
 
-INSERT INTO `user_master` (`id`, `username`, `password`, `type`, `is_active`, `date_created`, `last_login`) VALUES
-(1, 'admin', 'admin', '1', '1', '2020-07-24 00:00:00', '2020-07-25 09:20:33'),
-(2, 'student', 'student', '2', '0', '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
-(3, 'faculty', 'faculty', '3', '0', '2020-07-24 00:00:00', '2020-07-24 00:00:00');
+INSERT INTO `user_master` (`id`, `username`, `password`, `type`, `is_active`, `is_deleted`, `date_created`, `last_login`) VALUES
+(1, 'admin', 'admin1', '1', '1', 0, '2020-07-24 00:00:00', '2020-07-25 13:08:14'),
+(2, 'student', 'student', '2', '0', 0, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
+(3, 'faculty', 'faculty', '3', '0', 1, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
+(4, 'student2', 'student2', '3', '0', 0, '2020-07-25 14:02:09', '0000-00-00 00:00:00'),
+(5, 'Student1235854', 'new', '3', '1', 0, '2020-07-25 14:03:13', '0000-00-00 00:00:00'),
+(6, 'test1', 'test1', '1', '1', 0, '2020-07-25 14:04:08', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -165,7 +160,7 @@ ALTER TABLE `student_info`
 -- AUTO_INCREMENT for table `user_master`
 --
 ALTER TABLE `user_master`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
