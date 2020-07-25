@@ -35,7 +35,7 @@
       <h3>Total Students In System</h3>
       <p><a href="student.php"><?php echo $student_count;?></a></p>
 	  
-	  <h3>Total Facultes In System</h3>
+	  <h3>Total Faculties In System</h3>
       <p><a href="faculty.php"><?php echo $faculty_count;?></a></p>
     </div>
 	
