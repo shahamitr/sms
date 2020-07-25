@@ -20,6 +20,15 @@
 				$sql= "INSERT INTO faculty_info (name,surname,dob,city,state,date_created,is_active) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
 				$result =mysqli_query($conn, $sql);
 				header('Location: faculty.php');
+			} else if($_GET['type']=="student"){
+				$name= $_POST['name'];
+				$surname= $_POST['surname'];
+				$DOB= $_POST['dob'];
+				$city= $_POST['city'];
+				$state= $_POST['state'];
+				$sql= "INSERT INTO student_info (name,surname,dob,city,state,created_date,current_status) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
+				$result =mysqli_query($conn, $sql);
+				header('Location: student.php');
 			}
 		}
 	}
@@ -110,7 +119,45 @@ if($_GET){
 
 
 <?php	
+} else if ($_GET['type']=="student") { ?>
+		<div class="col-md-5">
+							<form method="post">
+								<div class="form-group">
+								<label for="name">Name</label>
+								<input type="text" class="form-control" id="name" placeholder="Name" name="name">
+							  </div>
+							  <div class="form-group">
+								<label for="surname">Surname</label>
+								<input type="text" class="form-control" id="surname" placeholder="surname" name="surname">
+							  </div>
+							  <div class="form-group">
+								<label for="gender">Gender</label>
+								<select id="gender" name="gender">
+									<option Value="M">Male</option>
+									<option Value="F">Female</option>
+								</select>
+							  </div>
+							  <div class="form-group">
+								<label for="dob">DOB</label>
+								<input type="date" class="form-control" id="dob" placeholder="Date of Birth"   name="dob">
+							  </div>
+							  <div class="form-group">
+								<label for="stt">State</label>
+								<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="state" class="form-control" required></select>
+								<label for="city">City</label>
+								<select id ="state" class="form-control" name="city" required></select>
+								<script language="javascript">print_state("sts");</script>
+							</div>
+							  
+							  <button type="submit" name="add" class="btn btn-primary">Submit</button>
+							</form>
+						</div>
+
+
+<?php	
 }
+
+
 } 
  else {
 	header('Location: index.php');

@@ -42,7 +42,7 @@
 
 	  <div class="text-right">
 		<button type="button" class="btn btn-primary" onClick='location.href="student.php"'>View All</button>
-		<button type="button" class="btn btn-success">Add New</button>
+		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=student"'>Add New</button>
 	  </div>
 
 		<?php

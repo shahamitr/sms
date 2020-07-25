@@ -32,11 +32,14 @@
 			$faculty_count = $data['faculty_count'];
 		
 		?>
+		
+	  <br>
       <h3>Total Students In System</h3>
-      <p><a href="student.php"><?php echo $student_count;?></a></p>
-	  
+      <p><?php echo $student_count;?> Students,  <a href="student.php">Click Here for More info</a></p>
+	  <br>
+	  <br>
 	  <h3>Total Faculties In System</h3>
-      <p><a href="faculty.php"><?php echo $faculty_count;?></a></p>
+      <p><?php echo $faculty_count;?> Faculties,  <a href="faculty.php">Click Here for More info</a></p>
     </div>
 	
     <?php require("rightmenu.php"); ?>
