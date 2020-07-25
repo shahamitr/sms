@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2020 at 10:39 AM
+-- Generation Time: Jul 25, 2020 at 03:06 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -36,7 +36,8 @@ CREATE TABLE `faculty_info` (
   `city` varchar(20) NOT NULL DEFAULT 'Ahmedabad' COMMENT 'Initially software is made for ahmedabad, so default is ahmedabad',
   `state` varchar(10) NOT NULL COMMENT 'No default value for state',
   `country` varchar(15) NOT NULL DEFAULT 'India' COMMENT 'Default country is india',
-  `is_active` enum('0','1') NOT NULL DEFAULT '0',
+  `is_active` enum('0','1') NOT NULL DEFAULT '1',
+  `date_created` date NOT NULL DEFAULT current_timestamp(),
   `updated_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -44,15 +45,16 @@ CREATE TABLE `faculty_info` (
 -- Dumping data for table `faculty_info`
 --
 
-INSERT INTO `faculty_info` (`id`, `name`, `surname`, `gender`, `dob`, `city`, `state`, `country`, `is_active`, `updated_date`) VALUES
-(2, 'nimit', 'Patel', 'F', '2020-07-01', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 06:02:04'),
-(3, 'suresh', 'Patel', 'M', '2020-07-17', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 06:02:08'),
-(4, 'kishan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:14:14'),
-(5, 'veeru', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:14:27'),
-(6, 'pratik', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:14:32'),
-(7, 'pradhan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:14:37'),
-(8, 'parth', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:14:47'),
-(9, 'prakash', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', '2020-07-18 05:17:43');
+INSERT INTO `faculty_info` (`id`, `name`, `surname`, `gender`, `dob`, `city`, `state`, `country`, `is_active`, `date_created`, `updated_date`) VALUES
+(2, 'nimit', 'Patel', 'F', '2020-07-01', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:29:26'),
+(3, 'suresh', 'Patel', 'M', '2020-07-17', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:37'),
+(4, 'kishan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:42'),
+(5, 'veeru', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:45'),
+(6, 'pratik', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:48'),
+(7, 'pradhan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:51'),
+(8, 'parth', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:55'),
+(9, 'prakash', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', '2020-07-25', '2020-07-25 11:21:58'),
+(12, 'manish', 'patel', 'M', '1994-05-15', ' Goregaon ', 'Maharashtr', 'India', '1', '2020-07-25', '2020-07-25 12:43:50');
 
 -- --------------------------------------------------------
 
@@ -110,12 +112,12 @@ CREATE TABLE `user_master` (
 --
 
 INSERT INTO `user_master` (`id`, `username`, `password`, `type`, `is_active`, `is_deleted`, `date_created`, `last_login`) VALUES
-(1, 'admin', 'admin1', '1', '1', 0, '2020-07-24 00:00:00', '2020-07-25 13:08:14'),
+(1, 'admin', 'admin1', '1', '1', 0, '2020-07-24 00:00:00', '2020-07-25 16:20:27'),
 (2, 'student', 'student', '2', '0', 0, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
 (3, 'faculty', 'faculty', '3', '0', 1, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
 (4, 'student2', 'student2', '3', '0', 0, '2020-07-25 14:02:09', '0000-00-00 00:00:00'),
 (5, 'Student1235854', 'new', '3', '1', 0, '2020-07-25 14:03:13', '0000-00-00 00:00:00'),
-(6, 'test1', 'test1', '1', '1', 0, '2020-07-25 14:04:08', '0000-00-00 00:00:00');
+(6, 'test1', 'test1', '1', '1', 0, '2020-07-25 14:04:08', '2020-07-25 18:30:15');
 
 --
 -- Indexes for dumped tables
@@ -148,7 +150,7 @@ ALTER TABLE `user_master`
 -- AUTO_INCREMENT for table `faculty_info`
 --
 ALTER TABLE `faculty_info`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `student_info`
