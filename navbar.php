@@ -16,11 +16,11 @@
 			$home_class = 'class="active"';
 		}else if($basename == "student.php"){
 			$student_class = 'class="active"';
-		}else if($basename == "faculty.php"){
+		}else if($basename == "faculty.php" ){
 			$faculty_class = 'class="active"';
-		}else if($basename == "contact.php"){
+		}else if($basename == "contact.php" ){
 			$contact_class = 'class="active"';
-		}else if($basename == "user.php"){
+		}else if($basename == "user.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=user"){
 				$user_class = 'class="active"';
 		}
 	  ?>	
