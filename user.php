@@ -81,7 +81,7 @@
 								<input type="text" class="form-control" id="name" placeholder="Username" value="<?php echo $row['username']?>" name="name">
 							  </div>
 							  <div class="form-group">
-								<label for="surname">Surname</label>
+								<label for="surname">Password</label>
 								<input type="password" class="form-control" id="surname" placeholder="password" value="<?php echo $row['password']?>"  name="password">
 							  </div>
 							  <div class="form-group">
