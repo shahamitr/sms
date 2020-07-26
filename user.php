@@ -90,7 +90,7 @@
 								<input type="text" class="form-control" id="date" placeholder="Date of Birth" value="<?php echo $row['type']?>"  name="type">
 							  </div>
 							 
-							  <button type="submit" class="btn btn-primary">Submit</button>
+							  <button type="submit" class="btn btn-primary" onclick="return Toast.show('User has been modified successfully.', 'success');">Submit</button>
 							</form>
 						</div>
 							

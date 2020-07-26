@@ -1,6 +1,5 @@
 <?php 
 require("session.php");
-
 require("connect.php");
 
 if($_POST){
@@ -15,9 +14,9 @@ if($_POST){
 		
 		$sql = "update faculty_info set name='$name', surname='$surname', dob='$dob' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: faculty.php');
-		
+
 	}
 } else if($_GET){ 
 	$action = $_GET['action'];
@@ -31,7 +30,7 @@ if($_POST){
 		
 		$sql = "update faculty_info set is_active='0' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: faculty.php');	
 	}
 } else {

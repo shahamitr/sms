@@ -88,7 +88,7 @@
 								<input type="date" class="form-control" id="dob" placeholder="Date of Birth" value="<?php echo $row['dob']?>"  name="dob">
 							  </div>
 							 
-							  <button type="submit" class="btn btn-primary">Submit</button>
+							  <button type="submit" class="btn btn-primary" onclick="return Toast.show('Faculty has been modified successfully.', 'success');">Submit</button>
 							</form>
 						</div>
 							

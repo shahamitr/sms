@@ -1,6 +1,5 @@
 <?php 
 require("session.php");
-
 require("connect.php");
 
 if($_POST){
@@ -15,7 +14,7 @@ if($_POST){
 		
 		$sql = "update user_master set username='$username', password='$password', type='$type' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: user.php');
 		
 	}
@@ -31,7 +30,7 @@ if($_POST){
 		
 		$sql = "update user_master set is_deleted='1' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: user.php');	
 	}
 } else {

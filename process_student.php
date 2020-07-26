@@ -1,6 +1,5 @@
 <?php 
 require("session.php");
-
 require("connect.php");
 
 if($_POST){
@@ -15,7 +14,7 @@ if($_POST){
 		
 		$sql = "update student_info set name='$name', surname='$surname', dob='$dob' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: student.php');
 		
 	}
@@ -31,7 +30,7 @@ if($_POST){
 		
 		$sql = "update student_info set is_deleted='1' $where";
 		$result = $conn->query($sql);
-		
+		sleep(1);
 		header('Location: student.php');	
 	}
 } else {
