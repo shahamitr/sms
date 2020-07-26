@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2020 at 03:06 PM
+-- Generation Time: Jul 26, 2020 at 07:31 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.5
 
@@ -82,13 +82,15 @@ CREATE TABLE `student_info` (
 --
 
 INSERT INTO `student_info` (`id`, `name`, `surname`, `gender`, `dob`, `city`, `state`, `country`, `current_status`, `is_deleted`, `created_date`, `updated_date`) VALUES
-(3, 'suresh', 'Patel', 'M', '2020-07-17', 'Ahmedabad', 'GJ', 'India', '1', 1, '2020-07-18 05:04:01', '2020-07-25 05:39:02'),
-(4, 'kishan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:05:08', '2020-07-18 05:14:14'),
+(3, 'suresh', 'Patel', 'M', '2020-07-17', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:04:01', '2020-07-25 13:45:49'),
+(4, 'Dhruvit', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:05:08', '2020-07-25 13:45:53'),
 (5, 'veeru', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:06:50', '2020-07-18 05:14:27'),
 (6, 'pratik', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:08:11', '2020-07-18 05:14:32'),
 (7, 'pradhan', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:10:45', '2020-07-18 05:14:37'),
 (8, 'parth', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '1', 0, '2020-07-18 05:11:09', '2020-07-18 05:14:47'),
-(9, 'prakash', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', 0, '2020-07-18 05:15:38', '2020-07-25 04:14:27');
+(9, 'prakash', 'Patel', 'M', '2020-11-21', 'Ahmedabad', 'GJ', 'India', '0', 0, '2020-07-18 05:15:38', '2020-07-25 04:14:27'),
+(10, 'kartik', 'lakhani', 'M', '2001-01-19', ' Radhanpur ', 'Gujarat', 'India', '1', 0, '2020-07-25 13:38:32', '2020-07-25 13:38:32'),
+(11, 'dhiraj', 'patil', 'M', '2000-04-01', ' Jalgaon ', 'Maharashtr', 'India', '1', 0, '2020-07-25 13:39:52', '2020-07-25 13:39:52');
 
 -- --------------------------------------------------------
 
@@ -112,9 +114,9 @@ CREATE TABLE `user_master` (
 --
 
 INSERT INTO `user_master` (`id`, `username`, `password`, `type`, `is_active`, `is_deleted`, `date_created`, `last_login`) VALUES
-(1, 'admin', 'admin1', '1', '1', 0, '2020-07-24 00:00:00', '2020-07-25 16:20:27'),
+(1, 'admin', 'admin1', '1', '1', 0, '2020-07-24 00:00:00', '2020-07-26 10:09:49'),
 (2, 'student', 'student', '2', '0', 0, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
-(3, 'faculty', 'faculty', '3', '0', 1, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
+(3, 'faculty', 'faculty', '3', '0', 0, '2020-07-24 00:00:00', '2020-07-24 00:00:00'),
 (4, 'student2', 'student2', '3', '0', 0, '2020-07-25 14:02:09', '0000-00-00 00:00:00'),
 (5, 'Student1235854', 'new', '3', '1', 0, '2020-07-25 14:03:13', '0000-00-00 00:00:00'),
 (6, 'test1', 'test1', '1', '1', 0, '2020-07-25 14:04:08', '2020-07-25 18:30:15');
@@ -156,7 +158,7 @@ ALTER TABLE `faculty_info`
 -- AUTO_INCREMENT for table `student_info`
 --
 ALTER TABLE `student_info`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_master`

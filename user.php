@@ -57,7 +57,7 @@
 					
 					$sql = "select * from user_master where $where";
 					$result = $conn->query($sql);
-					$student_index = 0;
+					$user_index = 0;
 					
 					if($result->num_rows === 1) {
 						$row = mysqli_fetch_assoc($result);
@@ -101,7 +101,7 @@
 							  <thead>
 								<tr>
 								  <th scope="col">#</th>
-								  <th scope="col">Usernamee</th>
+								  <th scope="col">Username</th>
 								  <th scope="col">Password</th>
 								  <th scope="col">Type</th>
 								  <th scope="col">Created</th>
@@ -114,25 +114,33 @@
 						while($row = mysqli_fetch_assoc($result)){
 								$password = hash('md5',$row["password"]);
 								echo '<tr>';
-								  echo '<th scope="row">'.++$student_index.'</th>';
+								  echo '<th scope="row">'.++$user_index.'</th>';
 								  echo '<td>'.$row["username"].'</td>';
 								  echo '<td>'.$password.'</td>';
 								  echo '<td>'.$row["type"].'</td>';
 								  echo '<td>'.$row["date_created"].'</td>';
-								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-':'<i class="fa fa-times-circle-o" aria-hidden="true"></i>
-').'</td>';
-								  echo '<td>';
-									echo '<a href="user.php?id='.$row["id"].'&action=view">
-										<i class="fa fa-info-circle" aria-hidden="true"></i>
-									</a>';
-									echo '<a href="user.php?id='.$row["id"].'&action=edit">
-										<i class="fa fa-pencil" aria-hidden="true"></i>
-									</a>';
-									echo '<a href="process_user.php?id='.$row["id"].'&action=delete">
-										<i class="fa fa-trash" aria-hidden="true"></i>
-									</a>';
-								  echo '</td>	';
+								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  	echo '<td>';
+										echo '<div class="btn-group">';
+											echo '<a class="btn btn-primary" href="user.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
+												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
+											echo '</a>';
+											echo '<ul class="dropdown-menu">';
+												echo '<li><a href="user.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a href="process_user.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+											echo '</ul>';
+										echo '</div>';	
+										// echo '<a href="user.php?id='.$row["id"].'&action=view">
+										// 	<i class="fa fa-info-circle" aria-hidden="true"></i>
+										// </a>';
+										// echo '<a href="user.php?id='.$row["id"].'&action=edit">
+										// 	<i class="fa fa-pencil" aria-hidden="true"></i>
+										// </a>';
+										// echo '<a href="process_user.php?id='.$row["id"].'&action=delete">
+										// 	<i class="fa fa-trash" aria-hidden="true"></i>
+										// </a>';
+								 	echo '</td>';
 								echo '</tr>';
 								
 						}

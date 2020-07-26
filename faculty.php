@@ -119,19 +119,27 @@
 								  echo '<td>'.$row["gender"].'</td>';
 								  echo '<td>'.$row["dob"].'</td>';
 								  echo '<td>'.$row["city"].'</td>';
-								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-circle-o" aria-hidden="true"></i>
-':'<i class="fa fa-times-circle-o" aria-hidden="true"></i>
-').'</td>';
+								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
-									echo '<a href="faculty.php?id='.$row["id"].'&action=view">
-										<i class="fa fa-info-circle" aria-hidden="true"></i>
-									</a>';
-									echo '<a href="faculty.php?id='.$row["id"].'&action=edit">
-										<i class="fa fa-pencil" aria-hidden="true"></i>
-									</a>';
-									echo '<a href="process_faculty.php?id='.$row["id"].'&action=delete">
-										<i class="fa fa-trash" aria-hidden="true"></i>
-									</a>';
+								  	echo '<div class="btn-group">';
+											echo '<a class="btn btn-primary" href="faculty.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
+												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
+											echo '</a>';
+											echo '<ul class="dropdown-menu">';
+												echo '<li><a href="faculty.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a href="process_faculty.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+											echo '</ul>';
+										echo '</div>';
+									// echo '<a href="faculty.php?id='.$row["id"].'&action=view">
+									// 	<i class="fa fa-info-circle" aria-hidden="true"></i>
+									// </a>';
+									// echo '<a href="faculty.php?id='.$row["id"].'&action=edit">
+									// 	<i class="fa fa-pencil" aria-hidden="true"></i>
+									// </a>';
+									// echo '<a href="process_faculty.php?id='.$row["id"].'&action=delete">
+									// 	<i class="fa fa-trash" aria-hidden="true"></i>
+									// </a>';
 								  echo '</td>	';
 								echo '</tr>';
 								
