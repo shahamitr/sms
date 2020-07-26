@@ -15,9 +15,10 @@
 				$name= $_POST['name'];
 				$surname= $_POST['surname'];
 				$DOB= $_POST['dob'];
+				$gender= $_POST['gender'];
 				$city= $_POST['city'];
 				$state= $_POST['state'];
-				$sql= "INSERT INTO faculty_info (name,surname,dob,city,state,date_created,is_active) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
+				$sql= "INSERT INTO faculty_info (name,surname,gender,dob,city,state,date_created,is_active) VALUES ('$name','$surname','$gender','$DOB','$city','$state',NOW(),'1')";
 				$result =mysqli_query($conn, $sql);
 				header('Location: faculty.php?message=Faculty Data Added Sucessfully');
 			} else if($_GET['type']=="student"){
