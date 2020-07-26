@@ -39,11 +39,12 @@
     <div class="col-sm-8 text-left"> 
       <h3>User Master</h3>
 	  <hr>
-
-	  <div class="text-right">
-		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'>View All</button>
-		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'>Add New</button>
+	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <div style="float: right;">
+	  		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'>View All</button>
+			<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'>Add New</button>
 	  </div>
+
 
 		<?php
 					require("connect.php");

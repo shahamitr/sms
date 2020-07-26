@@ -39,8 +39,8 @@
     <div class="col-sm-8 text-left"> 
       <h3>Faculty Master</h3>
 	  <hr>
-
-	  <div class="text-right">
+	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <div style="float: right;">
 		<button type="button" class="btn btn-primary" onClick='location.href="faculty.php"'>View All</button>
 		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=faculty"'>Add New</button>
 	  </div>
