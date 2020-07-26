@@ -14,11 +14,11 @@
 		$basename = basename($_SERVER['SCRIPT_NAME']);
 		if($basename == "dashboard.php"){
 			$home_class = 'class="active"';
-		}else if($basename == "student.php"){
+		}else if($basename == "student.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=student"){
 			$student_class = 'class="active"';
-		}else if($basename == "faculty.php" ){
+		}else if($basename == "faculty.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=faculty"){
 			$faculty_class = 'class="active"';
-		}else if($basename == "contact.php" ){
+		}else if($basename == "contact.php"  ){
 			$contact_class = 'class="active"';
 		}else if($basename == "user.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=user"){
 				$user_class = 'class="active"';

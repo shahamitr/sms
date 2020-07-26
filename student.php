@@ -23,14 +23,71 @@
 		.card_container {
 		  padding: 2px 16px;
 		}
-		
+		#snackbar {
+			visibility: hidden;
+		  min-width: 250px;
+		  margin-left: -125px;
+		  <?php
+			$msg = $_GET['message'];
+		  if(strpos($msg,'Deleted')>1){
+			  echo "background-color: #ff0000;";
+		  }
+		  else if(strpos($msg,'Updated')>1){
+			  echo "background-color: #E0D324;";
+		  }
+		  else{
+			  echo " background-color: #4BB543;";
+		  }?>
+		 
+		  color: #fff;
+		  text-align: center;
+		  border-radius: 2px;
+		  padding: 16px;
+		  position: fixed;
+		  z-index: 1;
+		  left: 50%;
+		  bottom: 30px;
+		  font-size: 17px;
+		}
+
+		#snackbar.show {
+		  visibility: visible;
+		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		}
+
+		@-webkit-keyframes fadein {
+		  from {bottom: 0; opacity: 0;} 
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@keyframes fadein {
+		  from {bottom: 0; opacity: 0;}
+		  to {bottom: 30px; opacity: 1;}
+		}
+
+		@-webkit-keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;} 
+		  to {bottom: 0; opacity: 0;}
+		}
+
+		@keyframes fadeout {
+		  from {bottom: 30px; opacity: 1;}
+		  to {bottom: 0; opacity: 0;}
+		}
 		
 	</style>
 
 </head>
 <body>
 	<?php require("navbar.php") ?>
-
+<?php 
+	if(isset($_GET['message'])){
+		
+?>
+<script> myFunction()</script>
+<div id="snackbar"><?php echo $_GET['message']?></div>
+	<?php } ?>
 	
 <div class="container-fluid text-center">    
   <div class="row content">
@@ -88,7 +145,7 @@
 								<input type="date" class="form-control" id="dob" placeholder="Date of Birth" value="<?php echo $row['dob']?>"  name="dob">
 							  </div>
 							 
-							  <button type="submit" class="btn btn-primary" onclick="return Toast.show('Student has been modified successfully.', 'success');">Submit</button>
+							  <button type="submit" class="btn btn-primary" >Submit</button>
 							</form>
 						</div>
 							
@@ -169,4 +226,14 @@
 
 
 </body>
+<script>
+	
+function myFunction() {
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+  setTimeout(function(){ location.href="student.php" }, 2000);
+}
+myFunction()
+</script>
 </html>

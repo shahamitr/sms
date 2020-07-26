@@ -14,8 +14,7 @@ if($_POST){
 		
 		$sql = "update user_master set username='$username', password='$password', type='$type' $where";
 		$result = $conn->query($sql);
-		sleep(1);
-		header('Location: user.php');
+		header('Location: user.php?message=User Data Updated Sucessfully');
 		
 	}
 } else if($_GET){ 
@@ -30,8 +29,7 @@ if($_POST){
 		
 		$sql = "update user_master set is_deleted='1' $where";
 		$result = $conn->query($sql);
-		sleep(1);
-		header('Location: user.php');	
+		header('Location: user.php?message=User Data Deleted Sucessfully');
 	}
 } else {
 	header('Location: index.php');

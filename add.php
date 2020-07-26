@@ -10,8 +10,7 @@
 				$type = $_POST['type'];
 				$sql= "INSERT INTO user_master (username,password,type,is_active,date_created) VALUES ('$username','$password',$type,'1',NOW())";
 				$result =mysqli_query($conn, $sql);
-				sleep(1);
-				header('Location: user.php');
+				header('Location: user.php?message=User Data Added Sucessfully');
 			} elseif($_GET['type']=="faculty"){
 				$name= $_POST['name'];
 				$surname= $_POST['surname'];
@@ -20,8 +19,7 @@
 				$state= $_POST['state'];
 				$sql= "INSERT INTO faculty_info (name,surname,dob,city,state,date_created,is_active) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
 				$result =mysqli_query($conn, $sql);
-				sleep(1);
-				header('Location: faculty.php');
+				header('Location: faculty.php?message=Faculty Data Added Sucessfully');
 			} else if($_GET['type']=="student"){
 				$name= $_POST['name'];
 				$surname= $_POST['surname'];
@@ -30,8 +28,7 @@
 				$state= $_POST['state'];
 				$sql= "INSERT INTO student_info (name,surname,dob,city,state,created_date,current_status) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
 				$result =mysqli_query($conn, $sql);
-				sleep(1);
-				header('Location: student.php');
+				header('Location: student.php?message=Student Data Added Sucessfully');
 			}
 		}
 	}
@@ -83,7 +80,7 @@ if($_GET){
 								<input type="text" class="form-control" id="date" placeholder="Type"   name="type">
 							  </div>
 							 
-							  <button type="submit" name="add" class="btn btn-primary" onclick="return Toast.show('New user added into system.', 'success');">Submit</button>
+							  <button type="submit" name="add" class="btn btn-primary" >Submit</button>
 							</form>
 						</div>
 <?php	} else if ($_GET['type']=="faculty") { ?>
@@ -116,7 +113,7 @@ if($_GET){
 								<script language="javascript">print_state("sts");</script>
 							</div>
 							  
-							  <button type="submit" name="add" class="btn btn-primary" onclick="return Toast.show('New faculty added into system.', 'success');">Submit</button>
+							  <button type="submit" name="add" class="btn btn-primary" >Submit</button>
 							</form>
 						</div>
 
@@ -152,7 +149,7 @@ if($_GET){
 								<script language="javascript">print_state("sts");</script>
 							</div>
 							  
-							  <button type="submit" name="add" class="btn btn-primary" onclick="return Toast.show('New student added into system.', 'success');">Submit</button>
+							  <button type="submit" name="add" class="btn btn-primary" >Submit</button>
 							</form>
 						</div>
 
