@@ -1,4 +1,30 @@
 <?php require("session.php");?>
+<?php
+	require("connect.php");
+	$error=false;
+	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
+		if(isset($_GET['num'])){
+			$i=0;
+			$total ="";
+			for($i=0;$i<count($_GET['num']);$i++){
+				$total .= $_GET['num'][$i].",";
+			}
+			$total =substr($total, 0, -1);
+			if(isset($_GET['Ac'])){
+				$status = 1;
+			}
+			else{
+				$status = 0;
+			}
+			$sql="UPDATE `faculty_info` SET `is_active` = '".$status."' WHERE `faculty_info`.`id` IN(".$total.");";
+			$result = $conn->query($sql);
+			header('Location: faculty.php');
+			return;
+		}else{
+			$error = "Please Select Any Row";
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,7 +121,17 @@
     <div class="col-sm-8 text-left"> 
       <h3>Faculty Master</h3>
 	  <hr>
+	  <?php if($error!==false){
+			echo "<p style='color:red'>".$error."</p>";
+		}
+		?>
 	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <form>
+			<div style="float: left;margin-left:25px">
+				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
+			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
+				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
+			</div>
 	  <div style="float: right;">
 		<button type="button" class="btn btn-primary" onClick='location.href="faculty.php"'>View All</button>
 		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=faculty"'>Add New</button>
@@ -109,7 +145,7 @@
 						$where = " id = ".$_GET['id']." and ";
 					}
 					
-					$where .= " is_active = '1'";
+					$where .= " is_deleted = '0'";
 					
 					$sql = "select * from faculty_info where $where";
 					$result = $conn->query($sql);
@@ -153,9 +189,10 @@
 						}
 					} else if($result->num_rows > 0) {
 					
-						echo '<table class="table">
+						echo '<table class="table table-hover record_table">
 							  <thead>
 								<tr>
+								  <th scope="col">Check</th>
 								  <th scope="col">#</th>
 								  <th scope="col">Firstname</th>
 								  <th scope="col">Lastname</th>
@@ -170,6 +207,8 @@
 						while($row = mysqli_fetch_assoc($result)){
 							
 								echo '<tr>';
+								echo '<td>  <input class="check" type="checkbox" id="id'.$row['id'].'" name="num[]" value="'.$row['id'].'"></td>';
+								echo "</form>";
 								  echo '<th scope="row">'.++$faculty_index.'</th>';
 								  echo '<td>'.$row["name"].'</td>';
 								  echo '<td>'.$row["surname"].'</td>';
@@ -177,6 +216,7 @@
 								  echo '<td>'.$row["dob"].'</td>';
 								  echo '<td>'.$row["city"].'</td>';
 								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+						
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
 											echo '<a class="btn btn-primary" href="faculty.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
@@ -226,7 +266,16 @@
 
 </body>
 <script>
-	
+$("#checkAll").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});
+$(document).ready(function() {
+    $('.record_table tr').click(function(event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+        }
+    });
+});
 function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";

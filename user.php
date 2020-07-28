@@ -1,4 +1,30 @@
 <?php require("session.php");?>
+<?php
+	require("connect.php");
+	$error=false;
+	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
+		if(isset($_GET['num'])){
+			$i=0;
+			$total ="";
+			for($i=0;$i<count($_GET['num']);$i++){
+				$total .= $_GET['num'][$i].",";
+			}
+			$total =substr($total, 0, -1);
+			if(isset($_GET['Ac'])){
+				$status = 1;
+			}
+			else{
+				$status = 0;
+			}
+			$sql="UPDATE `user_master` SET `is_active` = '".$status."' WHERE `user_master`.`id` IN(".$total.");";
+			$result = $conn->query($sql);
+			header('Location: user.php');
+			return;
+		}else{
+			$error = "Please Select Any Row";
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +122,19 @@
     <div class="col-sm-8 text-left"> 
       <h3>User Master</h3>
 	  <hr>
+	  <div>
+		<?php if($error!==false){
+			echo "<p style='color:red'>".$error."</p>";
+		}
+		?>
+	  </div>
 	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <form>
+			<div style="float: left;margin-left:25px">
+				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
+			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
+				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
+			</div>
 	  <div style="float: right;">
 	  		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'>View All</button>
 			<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'>Add New</button>
@@ -155,9 +193,10 @@
 						}
 					} else if($result->num_rows > 0) {
 					
-						echo '<table class="table">
+						echo '<table class="table table-hover record_table">
 							  <thead>
 								<tr>
+								<th scope="col">Check</th>
 								  <th scope="col">#</th>
 								  <th scope="col">Username</th>
 								  <th scope="col">Password</th>
@@ -172,6 +211,14 @@
 						while($row = mysqli_fetch_assoc($result)){
 								$password = hash('md5',$row["password"]);
 								echo '<tr>';
+								if($row['id']==1){
+									$disable = 'disabled';
+								}
+								else{
+									$disable ="";
+								}
+								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]"'.$disable.' value="'.$row['id'].'"></td>';
+								 echo "</form>";
 								  echo '<th scope="row">'.++$user_index.'</th>';
 								  echo '<td>'.$row["username"].'</td>';
 								  echo '<td>'.$password.'</td>';
@@ -226,7 +273,16 @@
 
 </body>
 <script>
-	
+$("#checkAll").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});	
+$(document).ready(function() {
+    $('.record_table tr').click(function(event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+        }
+    });
+});
 function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";

@@ -1,4 +1,30 @@
 <?php require("session.php");?>
+<?php
+	require("connect.php");
+	$error=false;
+	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
+		if(isset($_GET['num'])){
+			$i=0;
+			$total ="";
+			for($i=0;$i<count($_GET['num']);$i++){
+				$total .= $_GET['num'][$i].",";
+			}
+			$total =substr($total, 0, -1);
+			if(isset($_GET['Ac'])){
+				$status = 1;
+			}
+			else{
+				$status = 0;
+			}
+			$sql="UPDATE `student_info` SET `current_status` = '".$status."' WHERE `student_info`.`id` IN(".$total.");";
+			$result = $conn->query($sql);
+			header('Location: student.php');
+			return;
+		}else{
+			$error = "Please Select Any Row";
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,11 +118,23 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <?php  require("sidemenu.php") ?>
-	
     <div class="col-sm-8 text-left"> 
       <h3>Student Master</h3>
 	  <hr>
+	  <div>
+		<?php if($error!==false){
+			echo "<p style='color:red'>".$error."</p>";
+		}
+		?>
+	  </div>
 	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <form>
+			<div style="float: left;margin-left:25px">
+				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
+			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
+				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
+			</div>
+		
 	  <div style="float: right;">
 		<button type="button" class="btn btn-primary" onClick='location.href="student.php"'>View All</button>
 		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=student"'>Add New</button>
@@ -152,10 +190,11 @@
 							<?php
 						}
 					} else if($result->num_rows > 0) {
-					
-						echo '<table class="table">
+						
+						echo '<table class="table table-hover record_table">
 							  <thead>
 								<tr>
+									<th scope="col">Check</th>
 								  <th scope="col">#</th>
 								  <th scope="col">Firstname</th>
 								  <th scope="col">Lastname</th>
@@ -171,6 +210,8 @@
 						while($row = mysqli_fetch_assoc($result)){
 							
 								echo '<tr>';
+								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]" value="'.$row['id'].'"></td>';
+								 echo "</form>";
 								  echo '<th scope="row">'.++$student_index.'</th>';
 								  echo '<td>'.$row["name"].'</td>';
 								  echo '<td>'.$row["surname"].'</td>';
@@ -227,7 +268,16 @@
 
 </body>
 <script>
-	
+$("#checkAll").click(function () {
+    $(".check").prop('checked', $(this).prop('checked'));
+});	
+$(document).ready(function() {
+    $('.record_table tr').click(function(event) {
+        if (event.target.type !== 'checkbox') {
+            $(':checkbox', this).trigger('click');
+        }
+    });
+});
 function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";

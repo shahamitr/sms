@@ -27,7 +27,7 @@ if($_POST){
 		//$result = $conn->query($sql);
 		
 		
-		$sql = "update faculty_info set is_active='0' $where";
+		$sql = "update faculty_info set is_deleted='1' $where";
 		$result = $conn->query($sql);
 		header('Location: faculty.php?message=Faculty Data Deleted Sucessfully');	
 	}
