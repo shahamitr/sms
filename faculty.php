@@ -126,12 +126,14 @@
 		}
 		?>
 	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
+	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
 				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
 			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
 				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
 			</div>
+			 <?php } ?>
 	  <div style="float: right;">
 		<button type="button" class="btn btn-primary" onClick='location.href="faculty.php"'>View All</button>
 		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=faculty"'>Add New</button>
