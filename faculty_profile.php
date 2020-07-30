@@ -1,6 +1,7 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(CONNECT);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <?php require("admin_header.php"); ?>
+  <?php require(ADMIN); ?>
   
 </head>
 <body>
@@ -35,12 +36,12 @@
 	  <br>
 	  <br>
 	  </div>
-    <?php require("rightmenu.php"); ?>
+    <?php require(RIGHTMENU); ?>
 	
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 </body>
 </html>

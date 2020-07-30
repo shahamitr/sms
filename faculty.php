@@ -1,6 +1,7 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(FACM);
 	$error=false;
 	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
 		if(isset($_GET['num'])){
@@ -16,9 +17,8 @@
 			else{
 				$status = 0;
 			}
-			$sql="UPDATE `faculty_info` SET `is_active` = '".$status."' WHERE `faculty_info`.`id` IN(".$total.");";
-			$result = $conn->query($sql);
-			header('Location: faculty.php');
+			$result = InactiveFaculty($status,$total);
+			header('Location: '.FACUL);
 			return;
 		}else{
 			$error = "Please Select Any Row";
@@ -32,7 +32,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php require("admin_header.php"); ?>
+	<?php require(ADMIN); ?>
 
 	<style>
 	
@@ -106,7 +106,7 @@
 
 </head>
 <body>
-	<?php require("navbar.php") ?>
+	<?php require(NAVBAR) ?>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -116,7 +116,7 @@
 	<?php } ?>
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require("sidemenu.php") ?>
+    <?php  require(SIDEMENU) ?>
 	
     <div class="col-sm-8 text-left"> 
       <h3>Faculty Master</h3>
@@ -140,7 +140,7 @@
 	  </div>
 
 		<?php
-					require("connect.php");
+					require(CONNECT);
 					
 					$where = "";
 					if(isset($_GET['id'])) {
@@ -149,8 +149,7 @@
 					
 					$where .= " is_deleted = '0'";
 					
-					$sql = "select * from faculty_info where $where";
-					$result = $conn->query($sql);
+					$result =getFacultyByCondition($where);
 					$faculty_index = 0;
 					if($result->num_rows === 1) {
 						$row = mysqli_fetch_assoc($result);
@@ -221,13 +220,13 @@
 						
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="faculty.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="faculty.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
-												echo '<li><a href="process_faculty.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+												echo '<li><a href="'.FACUL.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a href="'.FACULPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="faculty.php?id='.$row["id"].'&action=view">
@@ -257,12 +256,12 @@
 
     </div>
     
-	<?php require('rightmenu.php'); ?>
+	<?php require(RIGHTMENU); ?>
 	
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 
 

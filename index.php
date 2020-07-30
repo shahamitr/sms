@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	require('tableConst.php');
+	require('lang.php');
+?>
+<?php
+	
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +13,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php require("header.php"); ?>
+	<?php require(HEADING); ?>
 
 
 </head>
@@ -15,25 +23,38 @@
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					Student Login
+					<?php echo $heading?>
 				</span>
 				<form class="login100-form validate-form p-b-33 p-t-5" action="login.php" method="post">
 
 					<div style="color:red;font-size:14px;text-align:center;"><?php if(isset($_GET['error'])) echo $_GET['error']; ?></div>	
+					 <div class="col-md-12 school-options-dropdown text-center">
+						<div class="dropdown btn-group">
 
+						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><?php echo $lang;?>
+							<span class="caret"></span>
+						  </button>
+
+						  <ul class="dropdown-menu">
+							<li><a href="index.php?lang=en">EN</a></li>
+							<li><a href="index.php?lang=fr">FR</a></li>
+						  </ul>
+
+						</div>
+					  </div>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="User name" value="" autocomplete="off">
+						<input class="input100" type="text" name="username" placeholder="<?php echo $user?>" value="" autocomplete="off">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="pass" placeholder="Password" value="" autocomplete="off">
+						<input class="input100" type="password" name="pass" placeholder="<?php echo $pass?>" value="" autocomplete="off">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
 						<button class="login100-form-btn">
-							Login
+							<?php echo $footer?>
 						</button>
 					</div>
 
@@ -45,7 +66,7 @@
 
 	<div id="dropDownSelect1"></div>
 
-	<?php require("footer.php"); ?>
+	<?php require(FOOTER); ?>
 
 </body>
 </html>

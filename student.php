@@ -1,6 +1,8 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(STUM);
+	
 	$error=false;
 	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
 		if(isset($_GET['num'])){
@@ -16,9 +18,8 @@
 			else{
 				$status = 0;
 			}
-			$sql="UPDATE `student_info` SET `current_status` = '".$status."' WHERE `student_info`.`id` IN(".$total.");";
-			$result = $conn->query($sql);
-			header('Location: student.php');
+			$result = InactiveStudent($status,$total);
+			header('Location: '.STU);
 			return;
 		}else{
 			$error = "Please Select Any Row";
@@ -33,7 +34,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="student.js"></script>
 
-	<?php require("admin_header.php"); ?>
+	<?php require(ADMIN); ?>
 
 	<style>
 	
@@ -107,7 +108,9 @@
 
 </head>
 <body>
-	<?php require("navbar.php") ?>
+	<?php require(NAVBAR);
+		
+	?>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -118,7 +121,7 @@
 	
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require("sidemenu.php") ?>
+    <?php  require(SIDEMENU) ?>
     <div class="col-sm-8 text-left"> 
       <h3>Student Master</h3>
 	  <hr>
@@ -143,7 +146,6 @@
 	  </div>
 
 		<?php
-					require("connect.php");
 					
 					$where = "";
 					if(isset($_GET['id'])) {
@@ -151,9 +153,8 @@
 					}
 					
 					$where .= " is_deleted = 0";
-					
-					$sql = "select * from student_info where $where";
-					$result = $conn->query($sql);
+
+					$result = getStudentByCondition($where);
 					$student_index = 0;
 					if($result->num_rows === 1) {
 						$row = mysqli_fetch_assoc($result);
@@ -224,14 +225,14 @@
 								  echo '<td id="status'.$row["id"].'">'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="student.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary" href="'.STU.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="student.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a href="'.STU.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
 												echo '<li><a onclick="inactiveStudent('.$row['id'].')"><i class="fa fa-trash-o fa-fw"></i> Inactive</a></li>';
-												echo '<li><a href="process_student.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+												echo '<li><a href="'.STUPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="student.php?id='.$row["id"].'&action=view">
@@ -260,12 +261,12 @@
 
     </div>
     
-	<?php require('rightmenu.php'); ?>
+	<?php require(RIGHTMENU); ?>
 	
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 
 

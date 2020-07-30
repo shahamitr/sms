@@ -1,6 +1,7 @@
 <?php 
 require("session.php");
-require("connect.php");
+require('tableConst.php');
+require(STUM);
 
 if($_POST){
 	$action = $_POST['action'];
@@ -9,35 +10,17 @@ if($_POST){
 		$name = $_POST['name'];
 		$surname = $_POST['surname'];
 		$dob = $_POST['dob'];
-		
-		$where = "where id = ".$id;
-		
-		$sql = "update student_info set name='$name', surname='$surname', dob='$dob' $where";
-		$result = $conn->query($sql);
-		header('Location: student.php?message=User Data Updated Sucessfully');
+		$result = updateStudent($id,$name,$surname,$dob);
+		header('Location: '.STU.'?message=User Data Updated Sucessfully');
 		
 	}
 } else if($_GET){ 
 	$action = $_GET['action'];
 	$id = $_GET['id'];
 	if($action == 'delete'){
-		$where = "where id = ".$id;
-		
-		//$sql = "delete from student_info $where";
-		//$result = $conn->query($sql);
-		
-		
-		$sql = "update student_info set is_deleted='1' $where";
-		$result = $conn->query($sql);
-		header('Location: student.php?message=User Data Deleted Sucessfully');
-	} else {
-		$where = "where id = ".$id;
-	
-		$sql = "update student_info set current_status='0' $where";
-		$result = $conn->query($sql);
-		
-	}
-		
+		$result = deleteStudent($id);
+		header('Location: '.STU.'?message=User Data Deleted Sucessfully');
+	} 	
 } else {
 	header('Location: index.php');
 }

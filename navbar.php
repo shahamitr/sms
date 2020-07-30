@@ -1,3 +1,6 @@
+<?php
+	require('tableConst.php');
+?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -14,13 +17,13 @@
 		$basename = basename($_SERVER['SCRIPT_NAME']);
 		if($basename == "dashboard.php"){
 			$home_class = 'class="active"';
-		}else if($basename == "student.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=student"){
+		}else if($basename == STU || basename($_SERVER['REQUEST_URI']) == ADD."?type=student"){
 			$student_class = 'class="active"';
-		}else if($basename == "faculty.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=faculty"){
+		}else if($basename == FACUL || basename($_SERVER['REQUEST_URI']) == ADD."?type=faculty"){
 			$faculty_class = 'class="active"';
 		}else if($basename == "contact.php"  ){
 			$contact_class = 'class="active"';
-		}else if($basename == "user.php" || basename($_SERVER['REQUEST_URI']) == "add.php?type=user"){
+		}else if($basename == US || basename($_SERVER['REQUEST_URI']) == ADD."?type=user"){
 				$user_class = 'class="active"';
 		}
 	  ?>	

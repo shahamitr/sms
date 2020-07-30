@@ -1,6 +1,7 @@
 <?php 
 require("session.php");
-require("connect.php");
+require('tableConst.php');
+require(FACM);
 
 if($_POST){
 	$action = $_POST['action'];
@@ -9,12 +10,8 @@ if($_POST){
 		$name = $_POST['name'];
 		$surname = $_POST['surname'];
 		$dob = $_POST['dob'];
-		
-		$where = "where id = ".$id;
-		
-		$sql = "update faculty_info set name='$name', surname='$surname', dob='$dob' $where";
-		$result = $conn->query($sql);
-		header('Location: faculty.php?message=Faculty Data Updated Sucessfully');
+		$result =updateFaculty($id,$name,$surname,$dob);
+		header('Location: '.FACUL.'?message=Faculty Data Updated Sucessfully');
 
 	}
 } else if($_GET){ 
@@ -22,14 +19,8 @@ if($_POST){
 	$id = $_GET['id'];
 	if($action == 'delete'){
 		$where = "where id = ".$id;
-		
-		//$sql = "delete from student_info $where";
-		//$result = $conn->query($sql);
-		
-		
-		$sql = "update faculty_info set is_deleted='1' $where";
-		$result = $conn->query($sql);
-		header('Location: faculty.php?message=Faculty Data Deleted Sucessfully');	
+		$result =deleteFaculty($id);
+		header('Location: '.FACUL.'?message=Faculty Data Deleted Sucessfully');	
 	}
 } else {
 	header('Location: index.php');

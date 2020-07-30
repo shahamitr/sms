@@ -1,15 +1,16 @@
-<?php require("connect.php");
+<?php 
+require('tableConst.php');
+require(CONNECT);
+require(STUM);
+require(FACM);
+require(USM);
 	if(isset($_POST['add'])){
-		
-
-
 		if($_GET){
 			if($_GET['type']=="user"){
 				$username= $_POST['username'];
 				$password = $_POST['password'];
 				$type = $_POST['type'];
-				$sql= "INSERT INTO user_master (username,password,type,is_active,date_created) VALUES ('$username','$password',$type,'1',NOW())";
-				$result =mysqli_query($conn, $sql);
+				$result =addUser($username,$password,$type);
 				header('Location: user.php?message=User Data Added Sucessfully');
 			} elseif($_GET['type']=="faculty"){
 				$name= $_POST['name'];
@@ -18,8 +19,7 @@
 				$gender= $_POST['gender'];
 				$city= $_POST['city'];
 				$state= $_POST['state'];
-				$sql= "INSERT INTO faculty_info (name,surname,gender,dob,city,state,date_created,is_active) VALUES ('$name','$surname','$gender','$DOB','$city','$state',NOW(),'1')";
-				$result =mysqli_query($conn, $sql);
+				$result = addFaculty($name,$surname,$gender,$DOB,$city,$state);
 				header('Location: faculty.php?message=Faculty Data Added Sucessfully');
 			} else if($_GET['type']=="student"){
 				$name= $_POST['name'];
@@ -27,8 +27,8 @@
 				$DOB= $_POST['dob'];
 				$city= $_POST['city'];
 				$state= $_POST['state'];
-				$sql= "INSERT INTO student_info (name,surname,dob,city,state,created_date,current_status) VALUES ('$name','$surname','$DOB','$city','$state',NOW(),'1')";
-				$result =mysqli_query($conn, $sql);
+				$gender = $_POST['gender'];
+				$result = addStudent($name,$surname,$gender,$DOB,$city,$state);
 				header('Location: student.php?message=Student Data Added Sucessfully');
 			}
 		}
@@ -43,17 +43,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="js/cities.js"></script>
 
-	<?php require("admin_header.php"); ?>
+	<?php require(ADMIN); ?>
 
 	
 </head>
 <body>
-	<?php require("navbar.php") ?>
+	<?php require(NAVBAR) ?>
 
 	
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require("sidemenu.php") ?>
+    <?php  require(SIDEMENU) ?>
 	
     <div class="col-sm-8 text-left"> 
       <h3>Add</h3>
@@ -170,7 +170,7 @@ if($_GET){
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 
 </body>

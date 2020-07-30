@@ -1,5 +1,6 @@
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(CONNECT);
 	
 	if($_POST){
 		$username = $_POST['username'];
@@ -20,7 +21,7 @@
 				$id = $row['id'];
 				$_SESSION['username'] = $row['username'];
 				
-				$sql = "update user_master set last_login = NOW() where id=".$id." limit 1";
+				$sql = "update ".USER." set last_login = NOW() where id=".$id." limit 1";
 				$result = $conn->query($sql);
 				if($row['type']==2){
 					header('Location: Student_profile.php');

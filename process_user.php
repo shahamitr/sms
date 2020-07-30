@@ -1,6 +1,7 @@
 <?php 
 require("session.php");
-require("connect.php");
+require('tableConst.php');
+require(USM);
 
 if($_POST){
 	$action = $_POST['action'];
@@ -9,27 +10,16 @@ if($_POST){
 		$username = $_POST['name'];
 		$password = $_POST['password'];
 		$type = $_POST['type'];
-		
-		$where = "where id = ".$id;
-		
-		$sql = "update user_master set username='$username', password='$password', type='$type' $where";
-		$result = $conn->query($sql);
-		header('Location: user.php?message=User Data Updated Sucessfully');
+		$result =updateUser($id,$username,$password,$type);
+		header('Location: '.US.'?message=User Data Updated Sucessfully');
 		
 	}
 } else if($_GET){ 
 	$action = $_GET['action'];
 	$id = $_GET['id'];
 	if($action == 'delete'){
-		$where = "where id = ".$id;
-		
-		//$sql = "delete from student_info $where";
-		//$result = $conn->query($sql);
-		
-		
-		$sql = "update user_master set is_deleted='1' $where";
-		$result = $conn->query($sql);
-		header('Location: user.php?message=User Data Deleted Sucessfully');
+		$result =deleteUser($id);
+		header('Location: '.US.'?message=User Data Deleted Sucessfully');
 	}
 } else {
 	header('Location: index.php');

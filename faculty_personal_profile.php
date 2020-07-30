@@ -1,6 +1,7 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(CONNECT);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <?php require("admin_header.php"); ?>
+  <?php require(ADMIN); ?>
   <style>
 	
 		.card {
@@ -32,7 +33,7 @@
 </head>
 <body>
 
-<?php require("navbar_profile.php") ?>
+<?php require('navbar_profile.php') ?>
 	<?php require("sidemenu_profile.php"); ?>
 	
     <div class="col-sm-8 text-left"> 
@@ -52,10 +53,10 @@
     ?>
 			<div style="float:left;margin-left:20px;width:50%;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
   </div>
-  <?php require("rightmenu.php"); ?>
+  <?php require(RIGHTMENU); ?>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 </body>
 </html>

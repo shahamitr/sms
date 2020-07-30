@@ -1,6 +1,7 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(STUM);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php require("admin_header.php"); ?>
+	<?php require(ADMIN); ?>
 <style>
 	
 		.card {
@@ -31,16 +32,16 @@
 
 </head>
 <body>
-	<?php require("navbar_profile.php") ?>
+	<?php require('navbar_profile.php') ?>
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require("sidemenu_profile.php") ?>
+    <?php  require('sidemenu_profile.php') ?>
     <div class="col-sm-8 text-left"> 
       <h3>Student Info</h3>
 	  
 	  <hr><div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
 		<?php
-					require("connect.php");
+					require(CONNECT);
 					
 					$where = "";
 					if(isset($_GET['id'])) {
@@ -49,8 +50,7 @@
 					
 					$where .= " is_deleted = 0";
 					
-					$sql = "select * from student_info where $where";
-					$result = $conn->query($sql);
+					$result = getStudentByCondition($where);
 					$student_index = 0;
 					if($result->num_rows === 1) {
 						$row = mysqli_fetch_assoc($result);
@@ -126,12 +126,12 @@
 
     </div>
     
-	<?php require('rightmenu.php'); ?>
+	<?php require(RIGHTMENU); ?>
 	
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 
 

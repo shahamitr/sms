@@ -1,6 +1,7 @@
 <?php require("session.php");?>
 <?php
-	require("connect.php");
+	require('tableConst.php');
+	require(USM);
 	$error=false;
 	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
 		if(isset($_GET['num'])){
@@ -16,9 +17,8 @@
 			else{
 				$status = 0;
 			}
-			$sql="UPDATE `user_master` SET `is_active` = '".$status."' WHERE `user_master`.`id` IN(".$total.");";
-			$result = $conn->query($sql);
-			header('Location: user.php');
+			$result =InactiveUser($status,$total);
+			header('Location: '.US);
 			return;
 		}else{
 			$error = "Please Select Any Row";
@@ -32,7 +32,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php require("admin_header.php"); ?>
+	<?php require(ADMIN); ?>
 
 	<style>
 	
@@ -106,7 +106,7 @@
 
 </head>
 <body>
-	<?php require("navbar.php") ?>
+	<?php require(NAVBAR) ?>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -117,7 +117,7 @@
 	
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require("sidemenu.php") ?>
+    <?php  require(SIDEMENU) ?>
 	
     <div class="col-sm-8 text-left"> 
       <h3>User Master</h3>
@@ -144,7 +144,6 @@
 
 
 		<?php
-					require("connect.php");
 					
 					$where = "";
 					if(isset($_GET['id'])) {
@@ -153,8 +152,7 @@
 					
 					$where .= " is_deleted = 0";
 					
-					$sql = "select * from user_master where $where";
-					$result = $conn->query($sql);
+					$result = getUserByCondition($where);
 					$user_index = 0;
 					
 					if($result->num_rows === 1) {
@@ -229,13 +227,13 @@
 								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  	echo '<td>';
 										echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="user.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="user.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
-												echo '<li><a href="process_user.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+												echo '<li><a href="'.US.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
 											echo '</ul>';
 										echo '</div>';	
 										// echo '<a href="user.php?id='.$row["id"].'&action=view">
@@ -264,12 +262,12 @@
 
     </div>
     
-	<?php require('rightmenu.php'); ?>
+	<?php require(RIGHTMENU); ?>
 	
   </div>
 </div>
 
-<?php require("footer.php"); ?>
+<?php require(FOOTER); ?>
 
 
 
