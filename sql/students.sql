@@ -38,7 +38,7 @@ CREATE TABLE `faculty_info` (
   `country` varchar(15) NOT NULL DEFAULT 'India' COMMENT 'Default country is india',
   `is_active` enum('0','1') NOT NULL DEFAULT '1',
   `is_deleted` enum('0','1') NOT NULL DEFAULT '1',
-  `date_created` date NOT NULL DEFAULT current_timestamp(),
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
