@@ -1,6 +1,7 @@
-<?php require("session.php");?>
-<?php
-	require("connect.php");
+<?php 
+	require("session.php");
+	require("student_model.php");
+	require("faculty_model.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +15,10 @@
 </head>
 <body>
 
-<?php require("navbar.php") ?>
-	<?php require("sidemenu.php"); ?>
+<?php 
+	require("navbar.php");
+	require("sidemenu.php");
+?>
 	
     <div class="col-sm-8 text-left"> 
       <p>This dashboard will give you infromation about all students and faculty of Arena Animation.</p>
@@ -23,16 +26,12 @@
 		<?php
 			
 			$student_count = 0;
-			$sql = "select count(*) as student_count from student_info";
-			$result = $conn->query($sql);
-			$data = mysqli_fetch_assoc($result);
-			$student_count = $data['student_count'];
+			$students = getAllStudent();
+			$student_count = $students->num_rows;
 			
 			$faculty_count = 0;
-			$sql = "select count(*) as faculty_count from faculty_info";
-			$result = $conn->query($sql);
-			$data = mysqli_fetch_assoc($result);
-			$faculty_count = $data['faculty_count'];
+			$faculties = getAllFaculty();
+			$faculty_count = $faculties->num_rows;
 		
 		?>
 		

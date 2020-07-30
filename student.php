@@ -31,6 +31,7 @@
 	<title>Dashboard - Student Master</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="student.js"></script>
 
 	<?php require("admin_header.php"); ?>
 
@@ -220,7 +221,7 @@
 								  echo '<td>'.$row["dob"].'</td>';
 								  echo '<td>'.$row["city"].'</td>';
 								  echo '<td>'.$row["created_date"].'</td>';
-								  echo '<td>'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  echo '<td id="status'.$row["id"].'">'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
 											echo '<a class="btn btn-primary" href="student.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
@@ -229,6 +230,7 @@
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
 												echo '<li><a href="student.php?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
+												echo '<li><a onclick="inactiveStudent('.$row['id'].')"><i class="fa fa-trash-o fa-fw"></i> Inactive</a></li>';
 												echo '<li><a href="process_student.php?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
 											echo '</ul>';
 										echo '</div>';

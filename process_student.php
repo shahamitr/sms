@@ -30,7 +30,14 @@ if($_POST){
 		$sql = "update student_info set is_deleted='1' $where";
 		$result = $conn->query($sql);
 		header('Location: student.php?message=User Data Deleted Sucessfully');
+	} else {
+		$where = "where id = ".$id;
+	
+		$sql = "update student_info set current_status='0' $where";
+		$result = $conn->query($sql);
+		
 	}
+		
 } else {
 	header('Location: index.php');
 }
