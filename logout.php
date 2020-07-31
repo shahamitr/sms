@@ -1,5 +1,16 @@
 <?php
 	session_start();
-	session_unset();
-	header('Location: index.php');
+	
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			header('Location: index.php?lang=fr');
+		}
+		else{
+			require('eng.php');
+			header('Location: index.php?lang=en');
+		}
+	}else{
+			require('eng.php');
+			header('Location: index.php?lang=en');
+	}
 ?>

@@ -3,6 +3,18 @@
 	require('tableConst.php');
 	require(STUM);
 ?>
+<?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +49,7 @@
   <div class="row content">
     <?php  require('sidemenu_profile.php') ?>
     <div class="col-sm-8 text-left"> 
-      <h3>Student Info</h3>
+      <h3><?php echo $student['head']?></h3>
 	  
 	  <hr><div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
 		<?php
@@ -74,14 +86,15 @@
 							  <thead>
 								<tr>
 								  <th scope="col">#</th>
-								  <th scope="col">Firstname</th>
-								  <th scope="col">Lastname</th>
-								  <th scope="col">Gender</th>
-								  <th scope="col">DOB</th>
-								  <th scope="col">City</th>
-								  <th scope="col">Enroll Date</th>
-								  <th scope="col">Status</th>
-								  <th scope="col">Action</th>
+								  <th scope="col">'.$table['Firstname'].'</th>
+								  <th scope="col">'.$table['Lastname'].'</th>
+								  <th scope="col">'.$table['Gender'].'</th>
+								  
+								  <th scope="col">'.$table['DOB'].'</th>
+								  <th scope="col">'.$table['City'].'</th>
+								  <th scope="col">'.$table['Enroll'].'</th>
+								  <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
 					
@@ -98,7 +111,7 @@
 								  echo '<td>'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="student_record.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';	
+											echo '<a class="btn btn-primary" href="student_record.php?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> '.$common['User'].'</a>';	
 										echo '</div>';
 									// echo '<a href="student.php?id='.$row["id"].'&action=view">
 									// 	<i class="fa fa-info-circle" aria-hidden="true"></i>

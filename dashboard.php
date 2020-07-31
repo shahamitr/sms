@@ -5,16 +5,18 @@
 	$stmt ="This dashboard will give you infromation about all students and faculty of Arena Animation.";
 	$totalS="Total Students In System";
 	$totalF="Total Faculties In System";
-	$student = "Student";
-	$faculty = "Faculty";
+	$student1 = "Student";
+	$faculty1 = "Faculty";
 	$msg ="Click Here for More info";
-	if($_SESSION['lang'] == "fr"){
-		$stmt ="Ce tableau de bord vous donnera des informations sur tous les étudiants et la faculté d'animation d'arène.";
-		$totalS="Nombre total d'étudiants dans le système";
-		$totalF="Nombre total de facultés dans le système";
-		$student = "d'étudiants";
-		$faculty = "de facultés";
-		$msg ="Cliquez ici pour plus d'informations";
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang'] == "fr"){
+			$stmt ="Ce tableau de bord vous donnera des informations sur tous les étudiants et la faculté d'animation d'arène.";
+			$totalS="Nombre total d'étudiants dans le système";
+			$totalF="Nombre total de facultés dans le système";
+			$student1 = "d'étudiants";
+			$faculty1 = "de facultés";
+			$msg ="Cliquez ici pour plus d'informations";
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -51,11 +53,11 @@
 		
 	  <br>
       <h3><?php echo $totalS?></h3>
-      <p><?php echo $student_count;?> <?php echo $student ?>,  <a href="student.php"><?php echo $msg?></a></p>
+      <p><?php echo $student_count;?> <?php echo $student1 ?>,  <a href="student.php"><?php echo $msg?></a></p>
 	  <br>
 	  <br>
 	  <h3><?php echo $totalF?></h3>
-      <p><?php echo $faculty_count;?> <?php echo $faculty?>,  <a href="faculty.php"><?php echo $msg?></a></p>
+      <p><?php echo $faculty_count;?> <?php echo $faculty1?>,  <a href="faculty.php"><?php echo $msg?></a></p>
     </div>
 	
     <?php require(RIGHTMENU); ?>

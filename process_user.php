@@ -2,7 +2,16 @@
 require("session.php");
 require('tableConst.php');
 require(USM);
-
+if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
 if($_POST){
 	$action = $_POST['action'];
 	$id = $_POST['id'];
@@ -11,7 +20,7 @@ if($_POST){
 		$password = $_POST['password'];
 		$type = $_POST['type'];
 		$result =updateUser($id,$username,$password,$type);
-		header('Location: '.US.'?message=User Data Updated Sucessfully');
+		header('Location: '.US.'?message='.$nav['User']." ".$message['update']);
 		
 	}
 } else if($_GET){ 
@@ -19,7 +28,7 @@ if($_POST){
 	$id = $_GET['id'];
 	if($action == 'delete'){
 		$result =deleteUser($id);
-		header('Location: '.US.'?message=User Data Deleted Sucessfully');
+		header('Location: '.US.'?message='.$nav['User']." ".$message['delete']);
 	}
 } else {
 	header('Location: index.php');

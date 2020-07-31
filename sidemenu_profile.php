@@ -13,10 +13,21 @@ $href = $href2 = $style = $style2 = "";
 				$style = "style='display:none'";
 			}
 	  ?>
-
+<?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
+?>
 <div class="col-sm-2 sidenav text-left">
-  <p ><a href="<?php echo $href?>">Home</a></p>
-  <p <?php echo $style?>><a href="student_record.php">Students</a></p>
-  <p <?php echo $style?>><a href="<?php echo $href2?>">Faculty</a></p>
+  <p ><a href="<?php echo $href?>"><?php echo $nav['home']?></a></p>
+  <p <?php echo $style?>><a href="student_record.php"><?php echo $nav['Students']?></a></p>
+  <p <?php echo $style?>><a href="<?php echo $href2?>"><?php echo $nav['Faculty']?></a></p>
   <p <?php echo $style.$style2?>><a href="user.php">User</a></p>
 </div>

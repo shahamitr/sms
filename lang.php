@@ -1,20 +1,39 @@
 <?php
-	$heading = "STUDENT LOGIN";
-	$lang ="Language";
-	$user ="User name";
-	$pass = "Password";
-	$footer = "Login";
-	if(isset($_GET['lang'])){
-		if($_GET['lang']=="fr"){
-			$heading = "CONNEXION ÉTUDIANTE";
-			$lang ="Langue";
-			$user ="Nom d'utilisateur";
-			$pass = "Mot de passe";
-			$footer = "S'identifier";
-			$_SESSION['lang'] = "fr";
-		}
-		else if($_GET['lang'] == "en"){
-			$_SESSION['lang'] = "";
-		}
-	}
+	$nav['home'] = "Accueil";
+	$nav['Students'] = "Étudiantes";
+	$nav['Faculty'] = "la faculté";
+	$nav['User'] = "Utilisatrice";
+	$nav['Logout'] = "Se déconnecter";
+	$nav['Welcome'] = "Bienvenue";
+	$student['head'] = "Master étudiant";
+	$faculty['head'] = "Maître de Faculté";
+	$user['head'] = "Maître utilisateur";
+	$common['SELECT'] = "TOUT SÉLECTIONNER";
+	$common['Active'] = "Tout actif";
+	$common['Inavtive'] = "Tout inactif";
+	$common['View'] = "Voir tout";
+	$common['Add'] = "ajouter";
+	$common['User'] = "Utilisatrice";
+	$common['Edit'] = "Éditer";
+	$common['Delete'] = "Supprimer";
+	$table['Firstname'] = "Prénom";
+	$table['Lastname'] = "Nom de famille";
+	$table['Gender'] = "Le sexe";
+	$table['DOB'] = "DOB";
+	$table['City'] = "Ville";
+	$table['Enroll'] = "Date d'inscription";
+	$table['Status'] = "Statut";
+	$table['Action'] = "Action";
+	$table['Check'] = "Vérifier";
+	$common['user'] ="Nom d'utilisateur";
+	$common['pass'] = "Mot de passe";
+	$common['created']	= "Établie";
+	$add['Add'] = "Ajouter";
+	$common['submit'] = "Soumettre";
+	$common['state'] = "Etat";
+	$common['female'] = "Femelle";
+	$common['male'] = "Mâle";
+	$message['added'] = "Données ajoutées avec succès";
+	$message['update'] = "Données mises à jour avec succès";
+	$message['delete'] = "Données supprimées avec succès";
 ?>

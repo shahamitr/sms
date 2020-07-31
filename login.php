@@ -2,6 +2,8 @@
 	require('tableConst.php');
 	require(CONNECT);
 	
+	
+	
 	if($_POST){
 		$username = $_POST['username'];
 		$password = $_POST['pass'];

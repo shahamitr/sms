@@ -1,6 +1,18 @@
 <?php
 	require('tableConst.php');
 ?>
+<?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
+?>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -28,21 +40,21 @@
 		}
 	  ?>	
       <ul class="nav navbar-nav">
-        <li <?php echo $home_class; ?> ><a href="dashboard.php">Home</a></li>
+        <li <?php echo $home_class; ?> ><a href="dashboard.php"><?php echo $nav['home']?></a></li>
 		
-        <li <?php echo $student_class; ?>><a href="student.php">Students</a></li>
-        <li <?php echo $faculty_class; ?>><a href="faculty.php">Faculty</a></li>
-		<li <?php echo $user_class; ?>><a href="user.php">User</a></li>
+        <li <?php echo $student_class; ?>><a href="student.php"><?php echo $nav['Students']?></a></li>
+        <li <?php echo $faculty_class; ?>><a href="faculty.php"><?php echo $nav['Faculty']?></a></li>
+		<li <?php echo $user_class; ?>><a href="user.php"><?php echo $nav['User']?></a></li>
         <li <?php echo $contact_class; ?>><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="logout.php">
 			<?php 
 			if(isset($_SESSION['username'])){
-				echo "Welcome, ".$_SESSION['username']; 
+				echo $nav['Welcome']." , ".$_SESSION['username']; 
 			}
 			?>
-			<span class="glyphicon glyphicon-log-in"></span> Logout</a>
+			<span class="glyphicon glyphicon-log-in"></span> <?php echo $nav['Logout']?></a>
 		</li>
       </ul>
     </div>

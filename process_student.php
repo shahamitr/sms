@@ -3,6 +3,17 @@ require("session.php");
 require('tableConst.php');
 require(STUM);
 
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
+
 if($_POST){
 	$action = $_POST['action'];
 	$id = $_POST['id'];
@@ -11,7 +22,7 @@ if($_POST){
 		$surname = $_POST['surname'];
 		$dob = $_POST['dob'];
 		$result = updateStudent($id,$name,$surname,$dob);
-		header('Location: '.STU.'?message=User Data Updated Sucessfully');
+		header('Location: '.STU.'?message='.$nav['Student']." ".$message['update']);
 		
 	}
 } else if($_GET){ 
@@ -19,7 +30,7 @@ if($_POST){
 	$id = $_GET['id'];
 	if($action == 'delete'){
 		$result = deleteStudent($id);
-		header('Location: '.STU.'?message=User Data Deleted Sucessfully');
+		header('Location: '.STU.'?message='.$nav['Student']." ".$message['delete']);
 	} 	
 } else {
 	header('Location: index.php');

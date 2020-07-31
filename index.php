@@ -1,7 +1,33 @@
 <?php
 	session_start();
 	require('tableConst.php');
-	require('lang.php');
+	$heading = "STUDENT LOGIN";
+	$lang ="Language";
+	$user ="User name";
+	$pass = "Password";
+	$footer = "Login";
+	if(isset($_GET['lang'])){
+		if($_GET['lang']=="fr"){
+			$_SESSION['lang'] = "fr";
+		}
+		else if($_GET['lang'] == "en"){
+			$_SESSION['lang'] = "";
+		}
+	}
+		else{
+			$_SESSION['lang'] = "";
+		}
+?>
+<?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			$heading = "CONNEXION ÉTUDIANTE";
+			$lang ="Langue";
+			$user ="Nom d'utilisateur";
+			$pass = "Mot de passe";
+			$footer = "S'identifier";
+		}
+	}
 ?>
 <?php
 	

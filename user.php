@@ -55,10 +55,10 @@
 		  margin-left: -125px;
 		  <?php
 			$msg = $_GET['message'];
-		  if(strpos($msg,'Deleted')>1){
+		 if((strpos($msg,'Deleted')>1)||(strpos($msg,'supprimées')>1)){
 			  echo "background-color: #ff0000;";
 		  }
-		  else if(strpos($msg,'Updated')>1){
+		  else if((strpos($msg,'Updated')>1)||(strpos($msg,'jour')>1)){
 			  echo "background-color: #E0D324;";
 		  }
 		  else{
@@ -120,7 +120,7 @@
     <?php  require(SIDEMENU) ?>
 	
     <div class="col-sm-8 text-left"> 
-      <h3>User Master</h3>
+      <h3><?php echo $user['head']?></h3>
 	  <hr>
 	  <div>
 		<?php if($error!==false){
@@ -132,14 +132,14 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
-				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
-			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
-				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
+				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;<?php echo $common['SELECT']?>
+			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
+				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
 			</div>
 			 <?php } ?>
 	  <div style="float: right;">
-	  		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'>View All</button>
-			<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'>Add New</button>
+	  		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'><?php echo $common['View']?></button>
+			<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'><?php echo $common['Add']?></button>
 	  </div>
 
 
@@ -173,11 +173,11 @@
 								<input type="hidden" name="action" value="<?php echo $_GET['action'];?>"/>
 								<input type="hidden" name="id" value="<?php echo $_GET['id'];?>"/>
 								<div class="form-group">
-								<label for="name">Username</label>
+								<label for="name"><?php echo $common['user']?></label>
 								<input type="text" class="form-control" id="name" placeholder="Username" value="<?php echo $row['username']?>" name="name">
 							  </div>
 							  <div class="form-group">
-								<label for="surname">Password</label>
+								<label for="surname"><?php echo $common['pass']?></label>
 								<input type="password" class="form-control" id="surname" placeholder="password" value="<?php echo $row['password']?>"  name="password">
 							  </div>
 							  <div class="form-group">
@@ -196,15 +196,14 @@
 						echo '<table class="table table-hover record_table">
 							  <thead>
 								<tr>
-								<th scope="col">Check</th>
+								<th scope="col">'.$table['Check'].'</th>
 								  <th scope="col">#</th>
-								  <th scope="col">Username</th>
-								  <th scope="col">Password</th>
+								  <th scope="col">'.$common['user'].'</th>
+								  <th scope="col">'.$common['pass'].'</th>
 								  <th scope="col">Type</th>
-								  <th scope="col">Created</th>
-								  <th scope="col">Status</th>
-								   
-								  <th scope="col">Action</th>
+								  <th scope="col">'.$common['created'].'</th>
+								  <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
 					
@@ -227,13 +226,13 @@
 								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  	echo '<td>';
 										echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view">'.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="'.US.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
-												echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+												echo '<li><a href="'.US.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
+												echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';	
 										// echo '<a href="user.php?id='.$row["id"].'&action=view">

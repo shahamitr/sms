@@ -25,6 +25,18 @@
 		}
 	}
 ?>
+<?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			require('lang.php');
+		}
+		else{
+			require('eng.php');
+		}
+	}else{
+			require('eng.php');
+		}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,10 +68,10 @@
 		  margin-left: -125px;
 		  <?php
 			$msg = $_GET['message'];
-		  if(strpos($msg,'Deleted')>1){
+		  if((strpos($msg,'Deleted')>1)||(strpos($msg,'supprimées')>1)){
 			  echo "background-color: #ff0000;";
 		  }
-		  else if(strpos($msg,'Updated')>1){
+		  else if((strpos($msg,'Updated')>1)||(strpos($msg,'jour')>1)){
 			  echo "background-color: #E0D324;";
 		  }
 		  else{
@@ -119,7 +131,7 @@
     <?php  require(SIDEMENU) ?>
 	
     <div class="col-sm-8 text-left"> 
-      <h3>Faculty Master</h3>
+      <h3><?php echo $faculty['head']?></h3>
 	  <hr>
 	  <?php if($error!==false){
 			echo "<p style='color:red'>".$error."</p>";
@@ -129,14 +141,14 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
-				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;SELCECT ALL
-			  <button type="submit" class="btn btn-primary" name="Ac">Active All</button>
-				<button type="submit" class="btn btn-primary" name ="IN">Inavtive All</button></a>	
+				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;<?php echo $common['SELECT']?>
+			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
+				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
 			</div>
 			 <?php } ?>
 	  <div style="float: right;">
-		<button type="button" class="btn btn-primary" onClick='location.href="faculty.php"'>View All</button>
-		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=faculty"'>Add New</button>
+		<button type="button" class="btn btn-primary" onClick='location.href="faculty.php"'><?php echo $common['View']?></button>
+		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=faculty"'><?php echo $common['Add']?></button>
 	  </div>
 
 		<?php
@@ -169,11 +181,11 @@
 								<input type="hidden" name="action" value="<?php echo $_GET['action'];?>"/>
 								<input type="hidden" name="id" value="<?php echo $_GET['id'];?>"/>
 								<div class="form-group">
-								<label for="name">Name</label>
+								<label for="name"><?php echo $table['Firstname']?></label>
 								<input type="text" class="form-control" id="name" placeholder="Name" value="<?php echo $row['name']?>" name="name">
 							  </div>
 							  <div class="form-group">
-								<label for="surname">Surname</label>
+								<label for="surname"><?php echo $table['Lastname']?></label>
 								<input type="text" class="form-control" id="surname" placeholder="Surname" value="<?php echo $row['surname']?>"  name="surname">
 							  </div>
 							  <div class="form-group">
@@ -193,15 +205,17 @@
 						echo '<table class="table table-hover record_table">
 							  <thead>
 								<tr>
-								  <th scope="col">Check</th>
+								  <th scope="col">'.$table['Check'].'</th>
 								  <th scope="col">#</th>
-								  <th scope="col">Firstname</th>
-								  <th scope="col">Lastname</th>
-								  <th scope="col">Gender</th>
-								  <th scope="col">DOB</th>
-								  <th scope="col">City</th>
-								  <th scope="col">Status</th>
-								  <th scope="col">Action</th>
+								    <th scope="col">'.$table['Firstname'].'</th>
+								  <th scope="col">'.$table['Lastname'].'</th>
+								  <th scope="col">'.$table['Gender'].'</th>
+								
+								  <th scope="col">'.$table['DOB'].'</th>
+								  <th scope="col">'.$table['City'].'</th>
+								 
+								  <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
 					
@@ -220,13 +234,13 @@
 						
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> User</a>';
+											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> '.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="'.FACUL.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>';
-												echo '<li><a href="'.FACULPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>';
+												echo '<li><a href="'.FACUL.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
+												echo '<li><a href="'.FACULPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="faculty.php?id='.$row["id"].'&action=view">
