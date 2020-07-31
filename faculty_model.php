@@ -13,9 +13,8 @@ function InactiveFaculty($status,$total){
 
 function getFacultyByCondition($where){
 	global $conn;
-	echo $sql = "select * from ".FACULTY." where $where";
+	 $sql = "select * from ".FACULTY." where $where";
 	$result = $conn->query($sql);
-	exit;
 	return $result;
 }
 
