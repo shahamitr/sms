@@ -34,6 +34,13 @@ require(USM);
 				$city= $_POST['city'];
 				$state= $_POST['state'];
 				$result = addFaculty($name,$surname,$gender,$DOB,$city,$state);
+				$where  = "name ='".$name."'";
+				$result1 = getFacultyByCondition($where);
+				$row = mysqli_fetch_assoc($result1);
+				$username= $name.$result1['id'];
+				$password = $username;
+				$type=3;
+				addUser($username,$password,$type);
 				header('Location: faculty.php?message='.$nav['Faculty']." ".$message['added']);
 			} else if($_GET['type']=="student"){
 				$name= $_POST['name'];
@@ -43,6 +50,13 @@ require(USM);
 				$state= $_POST['state'];
 				$gender = $_POST['gender'];
 				$result = addStudent($name,$surname,$gender,$DOB,$city,$state);
+				$where  = "name ='".$name."'";
+				$result1 = getStudentByCondition($where);
+				$row = mysqli_fetch_assoc($result1);
+				$username= $name.$row['id'];
+				$password = $username;
+				$type=2;
+				addUser($username,$password,$type);
 				header('Location: student.php?message='.$nav['Student']." ".$message['added']);
 			}
 		}
