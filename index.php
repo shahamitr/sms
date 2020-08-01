@@ -30,7 +30,14 @@
 	}
 ?>
 <?php
-	
+	if(isset($_GET['mode'])){
+		if($_GET['mode']=='dk'){
+			$_SESSION['mode'] ='dk';
+		}
+		else{
+			$_SESSION['mode'] = "lg";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,12 +48,23 @@
 
 	<?php require(HEADING); ?>
 
-
+<style>
+	#active{
+		background-color:black;
+		border-radius:50%;
+		width:30px;
+	}
+	#active a i{
+		color:white;
+	} 
+</style>
 </head>
 <body>
-	
+	<?php
+	$a=rand(1,10);
+?>
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-login100" style="background-image: url('images/<?php echo $a?>.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
 					<?php echo $heading?>
@@ -60,12 +78,31 @@
 						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><?php echo $lang;?>
 							<span class="caret"></span>
 						  </button>
-
+							
 						  <ul class="dropdown-menu">
 							<li><a href="index.php?lang=en">EN</a></li>
 							<li><a href="index.php?lang=fr">FR</a></li>
 						  </ul>
-
+						  	
+						  <ul style="margin-left:25px;">
+						  <?php 
+								$class1=$class2="";
+								if(isset($_SESSION['mode'])) {
+									if($_SESSION['mode']=='dk'){
+										$class1="id='active'";
+									}
+									else{
+										$class2 = 'id="active"';
+									}
+								}else{
+									$class2 = 'id="active"';
+								}								
+						  ?>
+							<li <?php echo $class1?>><a href="index.php?mode=dk" style="font-size:20px;"><i class="fa fa-moon-o" aria-hidden="true"></i></a></li>
+							<li <?php echo $class2?>><a href="index.php?mode=lg" style="font-size:20px;"><i class="fa fa-sun-o" aria-hidden="true"></i></a></li>
+						  </ul>
+							
+							
 						</div>
 					  </div>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">

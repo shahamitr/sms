@@ -165,9 +165,9 @@
 	  </div>
 	  <div style="float: left;"><script>function goBack() { window.history.back();}</script><button onclick="goBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></button></div>
 	  <?php if(!isset($_GET['action'])){ ?>
-	  <form>
+	  <form >
 			<div style="float: left;margin-left:25px">
-				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;<?php echo $common['SELECT']?>
+				
 			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
 				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
 			</div>
@@ -226,10 +226,10 @@
 						}
 					} else if($result->rowCount() > 0) {
 						
-						echo '<table class="table table-hover record_table">
+						echo '<table id="tbc" class="table table-hover record_table">
 							  <thead>
 								<tr>
-									<th scope="col">'.$table['Check'].'</th>
+									<th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
 								  <th scope="col">'.$table['Firstname'].'</th>
 								  <th scope="col">'.$table['Lastname'].'</th>
@@ -266,14 +266,14 @@
 												echo '<li><a href="'.STU.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
 												
 												$action = "active";
-												$text = "active";
+												$text = "Active";
 												if($row["current_status"] == 1){
 													$action = "inactive";
-													$text = $common['Inavtive'];
+													$text = 'Inavtive';
 												}
 												
-										$id = $row['id'];		
-echo '<li><a onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												$id = $row['id'];		
+												echo '<li id="status1'.$row["id"].'"><a  onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
 												
 												
 												

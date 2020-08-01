@@ -18,8 +18,14 @@ function getUserByCondition($where){
 
 function updateUser($id,$username,$password,$type){
 	global $conn;
-	$sql = "update ".USER." set username='$username', password='$password', type='$type' where id =".$id;
-	$result = $conn->query($sql);
+	$sql = "update ".USER." set username=:username, password=:password, type=:type where id=:id";
+	$result = $conn->prepare($sql);
+	$result->execute(array(
+		':username' => $username,
+		':password' => $password,
+		':type' => $type,
+		':id' =>$id
+	));
 	return $result;
 }
 
@@ -32,7 +38,12 @@ function deleteUser($id){
 
 function addUser($username,$password,$type){
 	global $conn;
-	$sql= "INSERT INTO ".USER." (username,password,type,is_active,date_created) VALUES ('$username','$password',$type,'1',NOW())";
-	$result =mysqli_query($conn, $sql);
+	$sql= "INSERT INTO ".USER." (username,password,type,is_active,date_created) VALUES (:username,:password,:type,'1',NOW())";
+	$result = $conn->prepare($sql);
+	$result->execute(array(
+		':username'=>$username,
+		':password' =>$password,
+		':type'=>$type
+	));
 	return $result;
 }

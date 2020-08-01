@@ -16,10 +16,10 @@
 			$sql = "select * from user_master where username='".$username."' and password='".$password."' and is_active='1' limit 1";
 			$result = $conn->query($sql);
 			
-			if($result->num_rows > 0){
+			if($result->rowCount() > 0){
 				
 				session_start();
-				$row = mysqli_fetch_array($result);
+				$row = $result->fetch();
 				$id = $row['id'];
 				$_SESSION['username'] = $row['username'];
 				

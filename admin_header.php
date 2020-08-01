@@ -1,3 +1,4 @@
+
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -24,3 +25,42 @@
 	<link rel="stylesheet" type="text/css" href="css/toast.css">
 
 <!--===============================================================================================-->
+<?php if(isset($_SESSION['mode'])) {
+	if($_SESSION['mode']=='dk'){ ?>
+		<style>
+		#navbar1{
+			color:white;
+			background-color:#1D9E74;
+		}
+		#navbar1 li a,p{
+				color:white;
+		}
+		#nav-head{
+			color:white;
+		}
+		#navbar1 li a:hover{
+			color:black;
+		}
+		#navbar1 li.active a:hover{
+			color:white;
+		}
+		body{
+			background-color:black;
+			color:white;
+		}
+		hr{
+			border-color:aqua;
+		}
+		#tbc tbody tr td,#tbc tbody tr th{
+			border-bottom:1px solid aqua;
+		}
+		#tbc thead tr th{
+			border-bottom:2px solid aqua;
+		}
+		#tbc>tbody>tr:hover{
+			background-color:#222;
+		}
+		</style>
+<?php }
+	}
+?>

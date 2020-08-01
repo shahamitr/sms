@@ -24,6 +24,7 @@ require(USM);
 				$password = $_POST['password'];
 				$type = $_POST['type'];
 				$result =addUser($username,$password,$type);
+				
 				header('Location: user.php?message='.$nav['User']." ".$message['added']);
 				
 			} elseif($_GET['type']=="faculty"){
@@ -34,10 +35,13 @@ require(USM);
 				$city= $_POST['city'];
 				$state= $_POST['state'];
 				$result = addFaculty($name,$surname,$gender,$DOB,$city,$state);
+				
 				$where  = "name ='".$name."'";
 				$result1 = getFacultyByCondition($where);
-				$row = mysqli_fetch_assoc($result1);
-				$username= $name.$result1['id'];
+				
+				
+				$row = $result1->fetch();
+				$username= $name.$row['id'];
 				$password = $username;
 				$type=3;
 				addUser($username,$password,$type);
@@ -52,7 +56,7 @@ require(USM);
 				$result = addStudent($name,$surname,$gender,$DOB,$city,$state);
 				$where  = "name ='".$name."'";
 				$result1 = getStudentByCondition($where);
-				$row = mysqli_fetch_assoc($result1);
+				$row = $result1->fetch();
 				$username= $name.$row['id'];
 				$password = $username;
 				$type=2;

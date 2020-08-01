@@ -31,6 +31,11 @@ if($_POST){
 		$result =deleteFaculty($id);
 		header('Location: '.FACUL.'?message='.$nav['Faculty']." ".$message['delete']);	
 	}
+	else if($action == 'inactive' || $action == 'active'){
+		$status = 0;
+		if($action === 'active') $status = 1;
+		$result = InactiveFaculty($status, $id);
+	}
 } else {
 	header('Location: index.php');
 }

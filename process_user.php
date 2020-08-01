@@ -30,6 +30,11 @@ if($_POST){
 		$result =deleteUser($id);
 		header('Location: '.US.'?message='.$nav['User']." ".$message['delete']);
 	}
+	else if($action == 'inactive' || $action == 'active'){
+		$status = 0;
+		if($action === 'active') $status = 1;
+		$result = InactiveUser($status, $id);
+	}
 } else {
 	header('Location: index.php');
 }

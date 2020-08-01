@@ -31,7 +31,7 @@
 	<title>Dashboard - User Master</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<script src="student.js"></script>
 	<?php require(ADMIN); ?>
 
 	<style>
@@ -101,11 +101,28 @@
 		  from {bottom: 30px; opacity: 1;}
 		  to {bottom: 0; opacity: 0;}
 		}
-		
+		.loader {
+		  border: 16px solid #f3f3f3; /* Light grey */
+		  border-top: 16px solid #3498db; /* Blue */
+		  border-radius: 50%;
+		  width: 120px;
+		  height: 120px;
+		  animation: spin 2s linear infinite;
+		  display: none;
+		  top: 50%;
+		  left: 50%;
+		  position:absolute;
+		}
+
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
 	</style>
 
 </head>
 <body>
+<div id="loader" class="loader"></div>
 	<?php require(NAVBAR) ?>
 <?php 
 	if(isset($_GET['message'])){
@@ -132,7 +149,6 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
-				<input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;<?php echo $common['SELECT']?>
 			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
 				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
 			</div>
@@ -155,8 +171,8 @@
 					$result = getUserByCondition($where);
 					$user_index = 0;
 					
-					if($result->num_rows === 1) {
-						$row = mysqli_fetch_assoc($result);
+					if($result->rowCount() === 1) {
+						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
 							echo '<div class="card">
 							  <img src="images/img_avatar.png" alt="Avatar" style="width:100%">
@@ -191,12 +207,12 @@
 							
 							<?php
 						}
-					} else if($result->num_rows > 0) {
+					} else if($result->rowCount() > 0) {
 					
-						echo '<table class="table table-hover record_table">
+						echo '<table id="tbc" class="table table-hover table-dark">
 							  <thead>
 								<tr>
-								<th scope="col">'.$table['Check'].'</th>
+								<th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
 								  <th scope="col">'.$common['user'].'</th>
 								  <th scope="col">'.$common['pass'].'</th>
@@ -207,7 +223,7 @@
 								</tr>
 							  </thead><tbody>';
 					
-						while($row = mysqli_fetch_assoc($result)){
+						while($row = $result->fetch()){
 								$password = hash('md5',$row["password"]);
 								echo '<tr>';
 								if($row['id']==1){
@@ -223,7 +239,7 @@
 								  echo '<td>'.$password.'</td>';
 								  echo '<td>'.$row["type"].'</td>';
 								  echo '<td>'.$row["date_created"].'</td>';
-								  echo '<td>'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  echo '<td id="status'.$row["id"].'">'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  	echo '<td>';
 										echo '<div class="btn-group">';
 											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view">'.$common['User'].'</a>';
@@ -232,7 +248,19 @@
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
 												echo '<li><a href="'.US.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
-												echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												$action = "active";
+												$text = "Active";
+												if($row["is_active"] == 1){
+													$action = "inactive";
+													$text = 'Inavtive';
+												}
+												if($row['id']!=1){
+													$id = $row['id'];		
+													echo '<li id="status1'.$row["id"].'"><a  onclick="inactiveUser('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												}
+												if($row['id']!=1){
+													echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												}
 											echo '</ul>';
 										echo '</div>';	
 										// echo '<a href="user.php?id='.$row["id"].'&action=view">
