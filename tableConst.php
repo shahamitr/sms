@@ -1,9 +1,11 @@
 <?php
+	//Table constants
 	if (!defined('STUDENT')) define('STUDENT', 'student_info');
 	if (!defined('FACULTY')) define('FACULTY', 'faculty_info');
 	if (!defined('USER')) define('USER', 'user_master');
-?>
-<?php
+
+	
+	//File constants
 	if (!defined('HEADING')) define('HEADING', 'header.php');
 	if (!defined('FOOTER')) define('FOOTER', 'footer.php');
 	if (!defined('NAVBAR')) define('NAVBAR', 'navbar.php');
