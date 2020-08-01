@@ -43,11 +43,11 @@
 			
 			$student_count = 0;
 			$students = getAllStudent();
-			$student_count = $students->num_rows;
+			$student_count = $students->rowCount();
 			
 			$faculty_count = 0;
 			$faculties = getAllFaculty();
-			$faculty_count = $faculties->num_rows;
+			$faculty_count = $faculties->rowCount();
 		
 		?>
 		

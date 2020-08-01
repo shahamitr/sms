@@ -116,10 +116,30 @@
 		  to {bottom: 0; opacity: 0;}
 		}
 		
+		.loader {
+		  border: 16px solid #f3f3f3; /* Light grey */
+		  border-top: 16px solid #3498db; /* Blue */
+		  border-radius: 50%;
+		  width: 120px;
+		  height: 120px;
+		  animation: spin 2s linear infinite;
+		  display: none;
+		  top: 50%;
+		  left: 50%;
+		  position:absolute;
+		}
+
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
+		
 	</style>
 
 </head>
 <body>
+<div id="loader" class="loader"></div>
+
 	<?php require(NAVBAR);
 		
 	?>
@@ -168,8 +188,8 @@
 
 					$result = getStudentByCondition($where);
 					$student_index = 0;
-					if($result->num_rows === 1) {
-						$row = mysqli_fetch_assoc($result);
+					if($result->rowCount() === 1) {
+						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
 							echo '<div class="card">
 							  <img src="images/img_avatar.png" alt="Avatar" style="width:100%">
@@ -204,7 +224,7 @@
 							
 							<?php
 						}
-					} else if($result->num_rows > 0) {
+					} else if($result->rowCount() > 0) {
 						
 						echo '<table class="table table-hover record_table">
 							  <thead>
@@ -223,7 +243,7 @@
 								</tr>
 							  </thead><tbody>';
 					
-						while($row = mysqli_fetch_assoc($result)){
+						while($row = $result->fetch()){
 							
 								echo '<tr>';
 								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]" value="'.$row['id'].'"></td>';
@@ -244,7 +264,20 @@
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
 												echo '<li><a href="'.STU.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
-												echo '<li><a onclick="inactiveStudent('.$row['id'].')"><i class="fa fa-trash-o fa-fw"></i> '.$common['Inavtive'].'</a></li>';
+												
+												$action = "active";
+												$text = "active";
+												if($row["current_status"] == 1){
+													$action = "inactive";
+													$text = $common['Inavtive'];
+												}
+												
+										$id = $row['id'];		
+echo '<li><a onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												
+												
+												
+												
 												echo '<li><a href="'.STUPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';

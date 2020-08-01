@@ -31,7 +31,12 @@ if($_POST){
 	if($action == 'delete'){
 		$result = deleteStudent($id);
 		header('Location: '.STU.'?message='.$nav['Student']." ".$message['delete']);
-	} 	
+	}
+	else if($action == 'inactive' || $action == 'active'){
+		$status = 0;
+		if($action === 'active') $status = 1;
+		$result = InactiveStudent($status, $id);
+	}	
 } else {
 	header('Location: index.php');
 }
