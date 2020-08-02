@@ -13,7 +13,7 @@
 	$common['Inavtive'] = "Tout inactif";
 	$common['View'] = "Voir tout";
 	$common['Add'] = "ajouter";
-	$common['User'] = "Utilisatrice";
+	$common['User'] = "Usager";
 	$common['Edit'] = "Éditer";
 	$common['Delete'] = "Supprimer";
 	$table['Firstname'] = "Prénom";
@@ -36,4 +36,5 @@
 	$message['added'] = "Données ajoutées avec succès";
 	$message['update'] = "Données mises à jour avec succès";
 	$message['delete'] = "Données supprimées avec succès";
+	$userss = '';
 ?>

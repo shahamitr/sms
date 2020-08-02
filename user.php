@@ -214,11 +214,13 @@
 								<tr>
 								<th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
-								  <th scope="col">'.$common['user'].'</th>
-								  <th scope="col">'.$common['pass'].'</th>
-								  <th scope="col">Type</th>
-								  <th scope="col">'.$common['created'].'</th>
-								  <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$common['user'].'</th>';
+								  if (!$detect->isMobile() ) {
+								  echo'<th scope="col">'.$common['pass'].'</th>
+									<th scope="col">Type</th>
+									<th scope="col">'.$common['created'].'</th>';
+								  }
+								  echo'<th scope="col">'.$table['Status'].'</th>
 								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
@@ -236,13 +238,15 @@
 								 echo "</form>";
 								  echo '<th scope="row">'.++$user_index.'</th>';
 								  echo '<td>'.$row["username"].'</td>';
-								  echo '<td>'.$password.'</td>';
-								  echo '<td>'.$row["type"].'</td>';
-								  echo '<td>'.$row["date_created"].'</td>';
+								   if (!$detect->isMobile() ) {
+									  echo '<td>'.$password.'</td>';
+									  echo '<td>'.$row["type"].'</td>';
+									  echo '<td>'.$row["date_created"].'</td>';
+								   }
 								  echo '<td id="status'.$row["id"].'">'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  	echo '<td>';
 										echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view">'.$common['User'].'</a>';
+											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';

@@ -36,4 +36,5 @@
 	$message['added'] = "Data Added Sucessfully";
 	$message['update'] = "Data Updated Sucessfully";
 	$message['delete'] = "Data Deleted Sucessfully";
+	$userss = '<i class="fa fa-user fa-fw"></i>';
 ?>

@@ -32,7 +32,7 @@
 			require('lang.php');
 		}
 		else{
-			require('eng.php');
+			require('eng.php');	
 		}
 	}else{
 			require('eng.php');
@@ -225,21 +225,25 @@
 							<?php
 						}
 					} else if($result->rowCount() > 0) {
-						
 						echo '<table id="tbc" class="table table-hover record_table">
 							  <thead>
 								<tr>
 									<th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
 								  <th scope="col">'.$table['Firstname'].'</th>
-								  <th scope="col">'.$table['Lastname'].'</th>
-								  <th scope="col">'.$table['Gender'].'</th>
+								  <th scope="col">'.$table['Lastname'].'</th>';
 								  
-								  <th scope="col">'.$table['DOB'].'</th>
-								  <th scope="col">'.$table['City'].'</th>
-								  <th scope="col">'.$table['Enroll'].'</th>
-								  <th scope="col">'.$table['Status'].'</th>
-								  <th scope="col">'.$table['Action'].'</th>
+									 
+									// Any mobile device (phones or tablets).
+									if (!$detect->isMobile() ) {
+									 
+									   echo '<th scope="col">'.$table['Gender'].'</th>
+									 <th scope="col">'.$table['DOB'].'</th>
+									  <th scope="col">'.$table['City'].'</th>
+									  <th scope="col">'.$table['Enroll'].'</th>';
+									}
+								 echo ' <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$table['Action'].'</th>;
 								</tr>
 							  </thead><tbody>';
 					
@@ -251,14 +255,17 @@
 								  echo '<th scope="row">'.++$student_index.'</th>';
 								  echo '<td>'.$row["name"].'</td>';
 								  echo '<td>'.$row["surname"].'</td>';
-								  echo '<td>'.$row["gender"].'</td>';
-								  echo '<td>'.$row["dob"].'</td>';
-								  echo '<td>'.$row["city"].'</td>';
-								  echo '<td>'.$row["created_date"].'</td>';
+								  if (!$detect->isMobile() ) {
+									  echo '<td>'.$row["gender"].'</td>';
+									 echo '<td>'.$row["dob"].'</td>';
+									  echo '<td>'.$row["city"].'</td>';
+									  echo '<td>'.$row["created_date"].'</td>';
+								  }
 								  echo '<td id="status'.$row["id"].'">'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.STU.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> '.$common['User'].'</a>';
+											
+											echo '<a class="btn btn-primary" href="'.STU.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';

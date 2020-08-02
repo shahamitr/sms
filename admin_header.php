@@ -25,6 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="css/toast.css">
 
 <!--===============================================================================================-->
+
 <?php if(isset($_SESSION['mode'])) {
 	if($_SESSION['mode']=='dk'){ ?>
 		<style>
@@ -64,3 +65,40 @@
 <?php }
 	}
 ?>
+<?php require_once 'mobilw/mobiledetect/mobiledetectlib/Mobile_Detect.php';
+$detect = new Mobile_Detect;
+ 
+// Any mobile device (phones or tablets).
+if ( $detect->isMobile() ) {
+ 
+ ?>
+
+<style>
+.btn{
+	padding:6px 5px;
+	font-size:11px;
+}
+body{
+	font-size:11px;
+}
+ <?php
+	if(isset($_SESSION['lang'])){
+		if($_SESSION['lang']=='fr'){
+			echo '.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	padding:3px;
+}';
+		}
+		else{
+				echo '.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	padding:4px;
+}';
+		}
+	}else{
+			echo '.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	padding:4px;
+}';
+		}
+?>
+
+</style>
+<?php } ?>

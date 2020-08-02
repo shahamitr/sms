@@ -225,13 +225,13 @@
 								  <th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
 								    <th scope="col">'.$table['Firstname'].'</th>
-								  <th scope="col">'.$table['Lastname'].'</th>
-								  <th scope="col">'.$table['Gender'].'</th>
-								
-								  <th scope="col">'.$table['DOB'].'</th>
-								  <th scope="col">'.$table['City'].'</th>
-								 
-								  <th scope="col">'.$table['Status'].'</th>
+								  <th scope="col">'.$table['Lastname'].'</th>';
+								 if (!$detect->isMobile() ) {
+										echo '<th scope="col">'.$table['Gender'].'</th>
+									  <th scope="col">'.$table['DOB'].'</th>
+									  <th scope="col">'.$table['City'].'</th>';
+								 }
+								  echo '<th scope="col">'.$table['Status'].'</th>
 								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
@@ -244,14 +244,16 @@
 								  echo '<th scope="row">'.++$faculty_index.'</th>';
 								  echo '<td>'.$row["name"].'</td>';
 								  echo '<td>'.$row["surname"].'</td>';
-								  echo '<td>'.$row["gender"].'</td>';
-								  echo '<td>'.$row["dob"].'</td>';
-								  echo '<td>'.$row["city"].'</td>';
+								   if (!$detect->isMobile() ) {
+									  echo '<td>'.$row["gender"].'</td>';
+									  echo '<td>'.$row["dob"].'</td>';
+									  echo '<td>'.$row["city"].'</td>';
+								   }
 								  echo '<td id="status'.$row["id"].'">'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 						
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view"><i class="fa fa-user fa-fw"></i> '.$common['User'].'</a>';
+											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
