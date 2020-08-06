@@ -131,6 +131,15 @@
 		  0% { transform: rotate(0deg); }
 		  100% { transform: rotate(360deg); }
 		}
+		#se:focus{
+			outline:1px solid black;
+		}
+		#se{
+			border-radius:7px;
+			font-size:14px;
+			vertical-align:middle;
+			padding:6px;
+		}
 	</style>
 
 </head>
@@ -159,8 +168,12 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
-			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
-				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
+			  <button type="button" onclick="FacultyStatus('active')" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
+				<button type="button" onclick="FacultyStatus('inactive')" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
+			</div>
+			<div style="float:left;margin-left:50px;">
+				
+				<input  style="border:1px solid black;background-color:#f1f1f1;color:black;" type="text" placeholder='Search...' id="se" onkeyup="fd()">
 			</div>
 			 <?php } ?>
 	  <div style="float: right;">
@@ -180,6 +193,7 @@
 					
 					$result =getFacultyByCondition($where);
 					$faculty_index = 0;
+					$totalFaculty = $result->rowCount();
 					if($result->rowCount() === 1) {
 						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
@@ -221,7 +235,7 @@
 					
 						echo '<table id="tbc" class="table table-hover record_table">
 							  <thead>
-								<tr>
+								<tr >
 								  <th scope="col"><input id="checkAll" class="form-check-input" type="checkbox" name="check">&nbsp;&nbsp;&nbsp;'.$table['Check'].'</th>
 								  <th scope="col">#</th>
 								    <th scope="col">'.$table['Firstname'].'</th>
@@ -236,24 +250,60 @@
 								</tr>
 							  </thead><tbody>';
 					
-						while($row = $result->fetch()){
+						$page = ceil($totalFaculty/5);
+						$p=5;
+						$u=0;
+						$prev=2;
+						$nex =$page-1; 
+						if($totalFaculty > $p){
 							
-								echo '<tr>';
-								echo '<td>  <input class="check" type="checkbox" id="id'.$row['id'].'" name="num[]" value="'.$row['id'].'"></td>';
+						}
+						else{
+							$p = $totalFaculty;
+						};
+						if(isset($_GET['page'])){
+							$u = 5*($_GET['page']-1);
+							$p = $p*($_GET['page']);
+							if($_GET['page']!=1){
+								$prev=$_GET['page'];
+							}
+							if($_GET['page']!=$page){
+								$nex = $_GET['page'];
+							}
+							if($totalFaculty > $p){}
+							else{$p = $totalFaculty;}
+						}
+						else{
+							if($page>1){
+							$nex =1;
+							}
+							else{
+								$nex=0;
+							}
+						}
+						$row = $result->fetchALL();
+						for($i=$u;$i<count($row);$i++){
+							if($u==$p){ 
+								break; 	
+							}
+							 $u++;
+							
+								echo '<tr id="table_row'.$row[$i]['id'].'">';
+								echo '<td>  <input class="check" type="checkbox" id="id'.$row[$i]['id'].'" name="num[]" value="'.$row[$i]['id'].'"></td>';
 								echo "</form>";
-								  echo '<th scope="row">'.++$faculty_index.'</th>';
-								  echo '<td>'.$row["name"].'</td>';
-								  echo '<td>'.$row["surname"].'</td>';
+								  echo '<th scope="row">'.$u.'</th>';
+								  echo '<td class="hide1">'.$row[$i]["name"].'</td>';
+								  echo '<td>'.$row[$i]["surname"].'</td>';
 								   if (!$detect->isMobile() ) {
-									  echo '<td>'.$row["gender"].'</td>';
-									  echo '<td>'.$row["dob"].'</td>';
-									  echo '<td>'.$row["city"].'</td>';
+									  echo '<td>'.$row[$i]["gender"].'</td>';
+									  echo '<td>'.$row[$i]["dob"].'</td>';
+									  echo '<td>'.$row[$i]["city"].'</td>';
 								   }
-								  echo '<td id="status'.$row["id"].'">'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  echo '<td id="status'.$row[$i]["id"].'">'.($row[$i]["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 						
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
+											echo '<a class="btn btn-primary" href="'.FACUL.'?id='.$row[$i]["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
@@ -261,14 +311,14 @@
 												echo '<li><a href="'.FACUL.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
 												$action = "active";
 												$text = "Active";
-												if($row["is_active"] == 1){
+												if($row[$i]["is_active"] == 1){
 													$action = "inactive";
 													$text = 'Inavtive';
 												}
 												
-												$id = $row['id'];		
-												echo '<li id="status1'.$row["id"].'"><a  onclick="inactiveFaculty('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
-												echo '<li><a href="'.FACULPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												$id = $row[$i]['id'];		
+												echo '<li id="inner_status'.$row[$i]["id"].'"><a  onclick="inactiveFaculty('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												echo '<li><a onclick=DeleteFaculty('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="faculty.php?id='.$row["id"].'&action=view">
@@ -293,6 +343,30 @@
 					} else {
 						echo "No faculty found in the system";						
 					}
+					echo '<nav aria-label="...">
+					  <ul class="pagination justify-content-center">
+						<li class="page-item ">
+						  <a class="page-link" href="faculty.php?page='.($prev-1).'" tabindex="-1">Previous</a>
+						</li>';
+						$class="";
+						for($i=0;$i<$page;$i++){
+							if(isset($_GET['page'])){
+								if($_GET['page'] == $i+1){
+									$class="active";
+								}
+							}
+							else{
+								if($i==0)
+								$class="active";
+							}
+							echo '<li class="page-item '.$class.'"><a class="page-link" href="faculty.php?page='.($i+1).'">'.($i+1).'</a></li>';
+							$class="";
+						}
+						echo '<li class="page-item">
+						  <a class="page-link" href="faculty.php?page='.($nex+1).'">Next</a>
+						</li>
+					  </ul>
+					</nav>';
 				
 				?>
 
@@ -309,6 +383,25 @@
 
 </body>
 <script>
+function FacultyStatus(status){
+	var a = document.getElementsByName('num[]').length;
+	var full = document.getElementsByName('num[]');
+	var arr=[];
+	if(a>=1){
+		for(var i =0;i<a;i++){
+			if(full[i].checked==true){
+				arr.push(full[i].value);
+			}
+		}
+	}
+	if(arr.length <1){
+		alert("Please Slect Record");
+	}
+	else{
+		AllFacultyStatus(arr,status);
+	}
+}
+
 $("#checkAll").click(function () {
     $(".check").prop('checked', $(this).prop('checked'));
 });
@@ -325,6 +418,24 @@ function myFunction() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
   setTimeout(function(){ location.href="faculty.php" }, 2000);
 }
-myFunction()
+myFunction();
+
+function fd(){
+        var a =  "" + se.value + ""; 
+        var b = new RegExp(a,"i");
+        var n = document.getElementsByClassName('hide1');
+        //console.log(n[0].innerHTML)
+        for(var i =0;i<n.length;i++){
+            var t = n[i].innerHTML.match(b);
+            if(t!==null){
+                n[i].parentElement.style.display = "";
+            }
+            else{
+                n[i].parentElement.style.display = "none";
+				//console.log(n[i].parentElement);
+            }
+        }
+    }
+
 </script>
 </html>

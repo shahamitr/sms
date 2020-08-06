@@ -133,7 +133,39 @@
 		  0% { transform: rotate(0deg); }
 		  100% { transform: rotate(360deg); }
 		}
-		
+		#se:focus{
+			outline:1px solid black;
+		}
+		#se{
+			border-radius:7px;
+			font-size:14px;
+			vertical-align:middle;
+			padding:6px;
+		}
+		#pg{
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #pg div{
+            font-size: 14px;
+            padding: 0 10px;
+            float: left;
+            border: 2px solid transparent;
+            display: inline-block;
+            line-height: 30px;
+        }
+        #pg div:hover{
+            background-color: gray;
+            border: 2px solid gray;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+        #pg .active{
+            background-color: cyan;
+            font-size: 20px;
+            transition: 0.5s ease;
+        }
 	</style>
 
 </head>
@@ -167,13 +199,14 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form >
 			<div style="float: left;margin-left:25px">
+			
+	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('active')"> <?php echo $common['Active']?></button>
+	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('inactive')"> <?php echo $common['Inavtive']?></button>
 				
-			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
-				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>
-
-	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('active')">Ajax <?php echo $common['Active']?></button>
-	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('inactive')">Ajax <?php echo $common['Inavtive']?></button>
+			</div>
+			<div style="float:left;margin-left:50px;">
 				
+				<input  style="border:1px solid black;background-color:#f1f1f1;color:black;" type="text" placeholder='Search...' id="se" onkeyup="fd()">
 			</div>
 	  <?php } ?>
 	  <div style="float: right;">
@@ -183,6 +216,7 @@
 
 		<?php
 					
+
 					$where = "";
 					if(isset($_GET['id'])) {
 						$where = " id = ".$_GET['id']." and ";
@@ -192,6 +226,7 @@
 
 					$result = getStudentByCondition($where);
 					$student_index = 0;
+					$totalStudent = $result->rowCount();
 					if($result->rowCount() === 1) {
 						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
@@ -250,46 +285,80 @@
 								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
-					
-						while($row = $result->fetch()){
+						$page = ceil($totalStudent/5);
+						$p=5;
+						$u=0;
+						$prev=2;
+						$nex =$page-1; 
+						if($totalStudent > $p){
 							
-								echo '<tr>';
-								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]" value="'.$row['id'].'"></td>';
+						}
+						else{
+							$p = $totalStudent;
+						};
+						if(isset($_GET['page'])){
+							$u = 5*($_GET['page']-1);
+							$p = $p*($_GET['page']);
+							if($_GET['page']!=1){
+								$prev=$_GET['page'];
+							}
+							if($_GET['page']!=$page){
+								$nex = $_GET['page'];
+							}
+							if($totalStudent > $p){}
+							else{$p = $totalStudent;}
+						}
+						else{
+							if($page>1){
+							$nex =1;
+							}
+							else{
+								$nex=0;
+							}
+						}
+						$row = $result->fetchALL();
+						for($i=$u;$i<count($row);$i++){
+							if($u==$p){ 
+								break; 	
+							}
+							 $u++;
+								echo '<tr id="table_row'.$row[$i]['id'].'">';
+								 echo '<td >  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]" value="'.$row[$i]['id'].'"></td>';
 								 echo "</form>";
-								  echo '<th scope="row">'.++$student_index.'</th>';
-								  echo '<td>'.$row["name"].'</td>';
-								  echo '<td>'.$row["surname"].'</td>';
+								  echo '<th scope="row">'.$u.'</th>';
+								  echo '<td class="hide1">'.$row[$i]["name"].'</td>';
+								  echo '<td>'.$row[$i]["surname"].'</td>';
 								  if (!$detect->isMobile() ) {
-									  echo '<td>'.$row["gender"].'</td>';
-									 echo '<td>'.$row["dob"].'</td>';
-									  echo '<td>'.$row["city"].'</td>';
-									  echo '<td>'.$row["created_date"].'</td>';
+									  echo '<td>'.$row[$i]["gender"].'</td>';
+									 echo '<td>'.$row[$i]["dob"].'</td>';
+									  echo '<td>'.$row[$i]["city"].'</td>';
+									  echo '<td>'.$row[$i]["created_date"].'</td>';
 								  }
-								  echo '<td id="status'.$row["id"].'">'.($row["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  echo '<td id="status'.$row[$i]["id"].'">'.($row[$i]["current_status"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  echo '<td>';
 								  	echo '<div class="btn-group">';
 											
-											echo '<a class="btn btn-primary" href="'.STU.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
+											echo '<a class="btn btn-primary" href="'.STU.'?id='.$row[$i]["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="'.STU.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
+												echo '<li><a href="'.STU.'?id='.$row[$i]["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
 												
 												$action = "active";
 												$text = "Active";
-												if($row["current_status"] == 1){
+												if($row[$i]["current_status"] == 1){
 													$action = "inactive";
 													$text = 'Inavtive';
 												}
 												
-												$id = $row['id'];		
-												echo '<li id="inner_status'.$row["id"].'"><a  onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												$id = $row[$i]['id'];		
+												echo '<li id="inner_status'.$row[$i]["id"].'"><a  onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
 												
 												
 												
 												
-												echo '<li><a href="'.STUPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												echo '<li><a onclick=DeleteStudent('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="student.php?id='.$row["id"].'&action=view">
@@ -304,8 +373,8 @@
 								  echo '</td>	';
 								echo '</tr>';
 								
+								
 						}
-						
 						
 							  echo '</tbody>
 							</table>';
@@ -313,9 +382,32 @@
 					} else {
 						echo "No students found in the system";						
 					}
-				
+				echo '<nav aria-label="...">
+					  <ul class="pagination justify-content-center">
+						<li class="page-item ">
+						  <a class="page-link" href="student.php?page='.($prev-1).'" tabindex="-1">Previous</a>
+						</li>';
+						$class="";
+						for($i=0;$i<$page;$i++){
+							if(isset($_GET['page'])){
+								if($_GET['page'] == $i+1){
+									$class="active";
+								}	
+							}
+							else{
+								if($i==0)
+								$class="active";
+							}
+							echo '<li class="page-item '.$class.'"><a class="page-link" href="student.php?page='.($i+1).'">'.($i+1).'</a></li>';
+							$class="";
+						}
+						echo '<li class="page-item">
+						  <a class="page-link" href="student.php?page='.($nex+1).'">Next</a>
+						</li>
+					  </ul>
+					</nav>';
 				?>
-
+				
     </div>
     
 	<?php require(RIGHTMENU); ?>
@@ -362,7 +454,56 @@ function activateAll(action){
 		alert("Please select ids and then click on action.");
 	}
 }
-
-
+function fd(){
+        var a =  "" + se.value + ""; 
+        var b = new RegExp(a,"i");
+        var n = document.getElementsByClassName('hide1');
+        //console.log(n[0].innerHTML)
+        for(var i =0;i<n.length;i++){
+            var t = n[i].innerHTML.match(b);
+            if(t!==null){
+                n[i].parentElement.style.display = "";
+            }
+            else{
+                n[i].parentElement.style.display = "none";
+				//console.log(n[i].parentElement);
+            }
+        }
+    }
+ window.onclick = function(){
+        var a = document.getElementsByTagName('div');
+		console.log(a);
+        if(event.target.matches('div')){
+            if(!event.target.matches('#bk,#fw')){
+                for(var i = 0;i<a.length;i++){
+                a[i].classList.value = "";
+                }
+                event.target.classList.value = "active";
+            }
+        }
+    }
+    function nt(event){
+        var a = document.getElementsByTagName('div');
+        if(event.target.matches('#fw')){
+            for(var i = 2;i<a.length-2;i++){
+                var r = a[i].classList.value;
+                if(r=="active"){
+                    a[i].classList.value = "";
+                    a[i+1].classList.value = "active";
+                    break;
+                }
+            }
+        }
+        else{
+            for(var i = 3;i<a.length-1;i++){
+                var r = a[i].classList.value;
+                if(r=="active"){
+                    a[i].classList.value = "";
+                    a[i-1].classList.value = "active";
+                    break;
+                }
+            }
+        }
+    }
 </script>
 </html>

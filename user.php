@@ -118,6 +118,15 @@
 		  0% { transform: rotate(0deg); }
 		  100% { transform: rotate(360deg); }
 		}
+		#se:focus{
+			outline:1px solid black;
+		}
+		#se{
+			border-radius:7px;
+			font-size:14px;
+			vertical-align:middle;
+			padding:6px;
+		}
 	</style>
 
 </head>
@@ -149,8 +158,13 @@
 	  <?php if(!isset($_GET['action'])){ ?>
 	  <form>
 			<div style="float: left;margin-left:25px">
-			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
-				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
+			  <button type="button" onclick="UserStatus('active')" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
+				<button type="button" onclick="UserStatus('inactive')" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
+			</div>
+			
+			<div style="float:left;margin-left:50px;">
+				
+				<input  style="border:1px solid black;background-color:#f1f1f1;color:black;" type="text" placeholder='Search...' id="se" onkeyup="fd()">
 			</div>
 			 <?php } ?>
 	  <div style="float: right;">
@@ -170,7 +184,7 @@
 					
 					$result = getUserByCondition($where);
 					$user_index = 0;
-					
+					$totalUser = $result->rowCount();
 					if($result->rowCount() === 1) {
 						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
@@ -225,45 +239,81 @@
 								</tr>
 							  </thead><tbody>';
 					
-						while($row = $result->fetch()){
-								$password = hash('md5',$row["password"]);
-								echo '<tr>';
-								if($row['id']==1){
+						$page = ceil($totalUser/5);
+						$p=5;
+						$u=0;
+						$prev=2;
+						$nex =$page-1; 
+						if($totalUser > $p){
+							
+						}
+						else{
+							$p = $totalUser;
+						};
+						if(isset($_GET['page'])){
+							$u = 5*($_GET['page']-1);
+							$p = $p*($_GET['page']);
+							if($_GET['page']!=1){
+								$prev=$_GET['page'];
+							}
+							if($_GET['page']!=$page){
+								$nex = $_GET['page'];
+							}
+							if($totalUser > $p){}
+							else{$p = $totalUser;}
+						}
+						else{
+							if($page>1){
+							$nex =1;
+							}
+							else{
+								$nex=0;
+							}
+						}
+						$row = $result->fetchALL();
+						for($i=$u;$i<count($row);$i++){
+							if($u==$p){ 
+								break; 	
+							}
+							 $u++;
+								$password = hash('md5',$row[$i]["password"]);
+								echo '<tr id="table_row'.$row[$i]['id'].'">';
+								if($row[$i]['id']==1){
 									$disable = 'disabled';
 								}
 								else{
 									$disable ="";
 								}
-								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]"'.$disable.' value="'.$row['id'].'"></td>';
+								 echo '<td>  <input class="check" type="checkbox" id="inlineCheckbox1" name="num[]"'.$disable.' value="'.$row[$i]['id'].'"></td>';
 								 echo "</form>";
-								  echo '<th scope="row">'.++$user_index.'</th>';
-								  echo '<td>'.$row["username"].'</td>';
+								  echo '<th scope="row">'.$u.'</th>';
+								  echo '<td class="hide1">'.$row[$i]["username"].'</td>';
 								   if (!$detect->isMobile() ) {
 									  echo '<td>'.$password.'</td>';
-									  echo '<td>'.$row["type"].'</td>';
-									  echo '<td>'.$row["date_created"].'</td>';
+									  echo '<td>'.$row[$i]["type"].'</td>';
+									  echo '<td>'.$row[$i]["date_created"].'</td>';
 								   }
-								  echo '<td id="status'.$row["id"].'">'.($row["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
+								  echo '<td id="status'.$row[$i]["id"].'">'.($row[$i]["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
 								  	echo '<td>';
 										echo '<div class="btn-group">';
-											echo '<a class="btn btn-primary" href="'.US.'?id='.$row["id"].'&action=view">'.$userss.$common['User'].'</a>';
+											echo '<a class="btn btn-primary" href="'.US.'?id='.$row[$i]["id"].'&action=view">'.$userss.$common['User'].'</a>';
 											echo '<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">';
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="'.US.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
+												echo '<li><a href="'.US.'?id='.$row[$i]["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
 												$action = "active";
 												$text = "Active";
-												if($row["is_active"] == 1){
+												if($row[$i]["is_active"] == 1){
 													$action = "inactive";
 													$text = 'Inavtive';
 												}
-												if($row['id']!=1){
-													$id = $row['id'];		
-													echo '<li id="status1'.$row["id"].'"><a  onclick="inactiveUser('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												if($row[$i]['id']!=1){
+													$id = $row[$i]['id'];		
+													echo '<li id="inner_status'.$row[$i]["id"].'"><a  onclick="inactiveUser('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
 												}
-												if($row['id']!=1){
-													echo '<li><a href="'.USPR.'?id='.$row["id"].'&action=delete"><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												if($row[$i]['id']!=1){
+													echo '<li><a onclick=DeleteUser('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 												}
 											echo '</ul>';
 										echo '</div>';	
@@ -288,7 +338,30 @@
 					} else {
 						echo "No students found in the system";						
 					}
-				
+					echo '<nav aria-label="...">
+					  <ul class="pagination justify-content-center">
+						<li class="page-item ">
+						  <a class="page-link" href="user.php?page='.($prev-1).'" tabindex="-1">Previous</a>
+						</li>';
+						$class="";
+						for($i=0;$i<$page;$i++){
+							if(isset($_GET['page'])){
+								if($_GET['page'] == $i+1){
+									$class="active";
+								}
+							}
+							else{
+								if($i==0)
+								$class="active";
+							}
+							echo '<li class="page-item '.$class.'"><a class="page-link" href="user.php?page='.($i+1).'">'.($i+1).'</a></li>';
+							$class="";
+						}
+						echo '<li class="page-item">
+						  <a class="page-link" href="user.php?page='.($nex+1).'">Next</a>
+						</li>
+					  </ul>
+					</nav>';
 				?>
 
     </div>
@@ -304,6 +377,25 @@
 
 </body>
 <script>
+function UserStatus(status){
+	var a = document.getElementsByName('num[]').length;
+	var full = document.getElementsByName('num[]');
+	var arr=[];
+	if(a>=1){
+		for(var i =0;i<a;i++){
+			if(full[i].checked==true && full[i].value!=1){
+				arr.push(full[i].value);
+			}
+		}
+	}
+	if(arr.length <1){
+		alert("Please Slect Record");
+	}
+	else{
+		AllUserStatus(arr,status);
+	}
+}
+
 $("#checkAll").click(function () {
     $(".check").prop('checked', $(this).prop('checked'));
 });	
@@ -320,6 +412,23 @@ function myFunction() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
   setTimeout(function(){ location.href="user.php" }, 2000);
 }
-myFunction()
+myFunction();
+
+function fd(){
+        var a =  "" + se.value + ""; 
+        var b = new RegExp(a,"i");
+        var n = document.getElementsByClassName('hide1');
+        //console.log(n[0].innerHTML)
+        for(var i =0;i<n.length;i++){
+            var t = n[i].innerHTML.match(b);
+            if(t!==null){
+                n[i].parentElement.style.display = "";
+            }
+            else{
+                n[i].parentElement.style.display = "none";
+				//console.log(n[i].parentElement);
+            }
+        }
+    }
 </script>
 </html>
