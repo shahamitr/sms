@@ -1,5 +1,5 @@
-<?php require("session.php");?>
-<?php
+<?php 
+	require("session.php");
 	require('tableConst.php');
 	require(STUM);
 	
@@ -169,7 +169,11 @@
 			<div style="float: left;margin-left:25px">
 				
 			  <button type="submit" class="btn btn-primary" name="Ac"><?php echo $common['Active']?></button>
-				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>	
+				<button type="submit" class="btn btn-primary" name ="IN"><?php echo $common['Inavtive']?></button></a>
+
+	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('active')">Ajax <?php echo $common['Active']?></button>
+	<button type="button" class="btn btn-primary" name="AAc"onClick="activateAll('inactive')">Ajax <?php echo $common['Inavtive']?></button>
+				
 			</div>
 	  <?php } ?>
 	  <div style="float: right;">
@@ -243,7 +247,7 @@
 									  <th scope="col">'.$table['Enroll'].'</th>';
 									}
 								 echo ' <th scope="col">'.$table['Status'].'</th>
-								  <th scope="col">'.$table['Action'].'</th>;
+								  <th scope="col">'.$table['Action'].'</th>
 								</tr>
 							  </thead><tbody>';
 					
@@ -280,7 +284,7 @@
 												}
 												
 												$id = $row['id'];		
-												echo '<li id="status1'.$row["id"].'"><a  onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
+												echo '<li id="inner_status'.$row["id"].'"><a  onclick="inactiveStudent('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
 												
 												
 												
@@ -342,5 +346,23 @@ function myFunction() {
   setTimeout(function(){ location.href="student.php" }, 2000);
 }
 myFunction()
+
+function activateAll(action){
+	var element = document.getElementsByName("num[]");
+	var a = document.getElementsByName("num[]").length;
+	var checkedIds = [];
+	for(var i = 0 ; i< a; i++){
+		if(element[i].type === "checkbox" && element[i].checked === true){
+			checkedIds.push(element[i].value);			
+		}
+	}
+	if(checkedIds.length > 0){
+		updateStatusAll(checkedIds,action);
+	} else {
+		alert("Please select ids and then click on action.");
+	}
+}
+
+
 </script>
 </html>

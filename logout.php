@@ -13,4 +13,5 @@
 			require('eng.php');
 			header('Location: index.php?lang=en');
 	}
+	unset($_SESSION["username"]);
 ?>
