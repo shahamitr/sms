@@ -69,6 +69,9 @@
 		#pagin li.active a{
 			background-color:#2e6da4;
 		}
+		select{
+			color:black;
+		}
 		</style>
 <?php }
 	}

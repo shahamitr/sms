@@ -63,7 +63,7 @@
 		.card_container {
 		  padding: 2px 16px;
 		}
-		#snackbar {
+		#snackbar,#snackbar1 {
 			visibility: hidden;
 		  min-width: 250px;
 		  margin-left: -125px;
@@ -90,7 +90,7 @@
 		  font-size: 17px;
 		}
 
-		#snackbar.show {
+		#snackbar.show,#snackbar1.show {
 		  visibility: visible;
 		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
 		  animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -167,6 +167,9 @@
             font-size: 20px;
             transition: 0.5s ease;
         }
+		#snackbar1{
+			background-color:red;
+		}
 	</style>
 
 </head>
@@ -176,6 +179,7 @@
 	<?php require(NAVBAR);
 		
 	?>
+	<div id="snackbar1">Student Data Deleted Successfully</div>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -359,7 +363,7 @@
 												
 												
 												
-												echo '<li><a onclick=DeleteStudent('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												echo '<li><a onclick=DeleteStudentmsg('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="student.php?id='.$row["id"].'&action=view">
@@ -383,6 +387,7 @@
 					} else {
 						echo "No students found in the system";						
 					}
+					if(!isset($_GET['action'])){
 				echo '<nav aria-label="...">
 					  <ul id="pagin" class="pagination justify-content-center">
 						<li class="page-item ">
@@ -407,6 +412,7 @@
 						</li>
 					  </ul>
 					</nav>';
+					}
 				?>
 				
     </div>
@@ -436,9 +442,19 @@ function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-  setTimeout(function(){ location.href="student.php" }, 2000);
+  var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="student.php"+queryString }, 2000);
 }
-myFunction()
+myFunction();
+function myFunction1() {
+  var x = document.getElementById("snackbar1");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+	var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="student.php"+queryString}, 2000);
+}
 
 function activateAll(action){
 	var element = document.getElementsByName("num[]");
@@ -455,6 +471,10 @@ function activateAll(action){
 		alert("Please select ids and then click on action.");
 	}
 }
+ function DeleteStudentmsg(id){
+	 myFunction1();
+	 DeleteStudent(id);
+ }
 function fd(){
         var a =  "" + se.value + ""; 
         var b = new RegExp(a,"i");

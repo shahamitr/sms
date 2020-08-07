@@ -49,7 +49,7 @@
 		.card_container {
 		  padding: 2px 16px;
 		}
-		#snackbar {
+		#snackbar,#snackbar1 {
 			visibility: hidden;
 		  min-width: 250px;
 		  margin-left: -125px;
@@ -76,7 +76,7 @@
 		  font-size: 17px;
 		}
 
-		#snackbar.show {
+		#snackbar.show,#snackbar1.show {
 		  visibility: visible;
 		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
 		  animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -128,12 +128,16 @@
 			padding:6px;
 			font-family: FontAwesome;
 		}
+		#snackbar1{
+			background-color:red;
+		}
 	</style>
 
 </head>
 <body>
 <div id="loader" class="loader"></div>
 	<?php require(NAVBAR) ?>
+	<div id="snackbar1">User Data Deleted Successfully</div>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -314,7 +318,7 @@
 													echo '<li id="inner_status'.$row[$i]["id"].'"><a  onclick="inactiveUser('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
 												}
 												if($row[$i]['id']!=1){
-													echo '<li><a onclick=DeleteUser('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+													echo '<li><a onclick=DeleteUsermsg('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 												}
 											echo '</ul>';
 										echo '</div>';	
@@ -339,6 +343,7 @@
 					} else {
 						echo "No students found in the system";						
 					}
+					if(!isset($_GET['action'])){
 					echo '<nav aria-label="...">
 					  <ul id="pagin" class="pagination justify-content-center">
 						<li class="page-item ">
@@ -363,6 +368,7 @@
 						</li>
 					  </ul>
 					</nav>';
+					}
 				?>
 
     </div>
@@ -411,10 +417,23 @@ function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-  setTimeout(function(){ location.href="user.php" }, 2000);
+    var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="user.php"+queryString }, 2000);
 }
 myFunction();
-
+function myFunction1() {
+  var x = document.getElementById("snackbar1");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+    var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="user.php"+queryString }, 2000);
+}
+function DeleteUsermsg(id){
+	 myFunction1();
+	 DeleteUser(id);
+ }
 function fd(){
         var a =  "" + se.value + ""; 
         var b = new RegExp(a,"i");

@@ -62,7 +62,7 @@
 		  padding: 2px 16px;
 		}
 		
-		#snackbar {
+		#snackbar,#snackbar1{
 			visibility: hidden;
 		  min-width: 250px;
 		  margin-left: -125px;
@@ -89,7 +89,7 @@
 		  font-size: 17px;
 		}
 
-		#snackbar.show {
+		#snackbar.show,#snackbar1.show {
 		  visibility: visible;
 		  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
 		  animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -141,12 +141,16 @@
 			padding:6px;
 			font-family: FontAwesome;
 		}
+		#snackbar1{
+			background-color:red;
+		}
 	</style>
 
 </head>
 <body>
 <div id="loader" class="loader"></div>
 	<?php require(NAVBAR) ?>
+		<div id="snackbar1">Faculty Data Deleted Successfully</div>
 <?php 
 	if(isset($_GET['message'])){
 		
@@ -309,7 +313,7 @@
 												echo '<span class="fa fa-caret-down" title="Toggle dropdown menu"></span>';
 											echo '</a>';
 											echo '<ul class="dropdown-menu">';
-												echo '<li><a href="'.FACUL.'?id='.$row["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
+												echo '<li><a href="'.FACUL.'?id='.$row[$i]["id"].'&action=edit"><i class="fa fa-pencil fa-fw"></i> '.$common['Edit'].'</a></li>';
 												$action = "active";
 												$text = "Active";
 												if($row[$i]["is_active"] == 1){
@@ -319,7 +323,7 @@
 												
 												$id = $row[$i]['id'];		
 												echo '<li id="inner_status'.$row[$i]["id"].'"><a  onclick="inactiveFaculty('.$id.',\''.$action.'\')"><i class="fa fa-trash-o fa-fw"></i> '.$text.'</a></li>';
-												echo '<li><a onclick=DeleteFaculty('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
+												echo '<li><a onclick=DeleteFacultymsg('.$row[$i]['id'].')><i class="fa fa-trash-o fa-fw"></i> '.$common['Delete'].'</a></li>';
 											echo '</ul>';
 										echo '</div>';
 									// echo '<a href="faculty.php?id='.$row["id"].'&action=view">
@@ -344,6 +348,7 @@
 					} else {
 						echo "No faculty found in the system";						
 					}
+					if(!isset($_GET['action'])){
 					echo '<nav aria-label="...">
 					  <ul id="pagin" class="pagination justify-content-center">
 						<li class="page-item ">
@@ -368,7 +373,7 @@
 						</li>
 					  </ul>
 					</nav>';
-				
+					}
 				?>
 
     </div>
@@ -417,10 +422,23 @@ function myFunction() {
   var x = document.getElementById("snackbar");
   x.className = "show";
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
-  setTimeout(function(){ location.href="faculty.php" }, 2000);
+  var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="faculty.php"+queryString }, 2000);
 }
 myFunction();
-
+function myFunction1() {
+  var x = document.getElementById("snackbar1");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+  var queryString = window.location.search;
+	if(queryString=="")queryString = "?page=1";
+  setTimeout(function(){ location.href="faculty.php"+queryString }, 2000);
+}
+function DeleteFacultymsg(id){
+	 myFunction1();
+	 DeleteFaculty(id);
+ }
 function fd(){
         var a =  "" + se.value + ""; 
         var b = new RegExp(a,"i");
