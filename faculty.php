@@ -139,6 +139,7 @@
 			font-size:14px;
 			vertical-align:middle;
 			padding:6px;
+			font-family: FontAwesome;
 		}
 	</style>
 
@@ -173,7 +174,7 @@
 			</div>
 			<div style="float:left;margin-left:50px;">
 				
-				<input  style="border:1px solid black;background-color:#f1f1f1;color:black;" type="text" placeholder='Search...' id="se" onkeyup="fd()">
+				<input  style="border:1px solid black;background-color:#f1f1f1;color:black;" type="text" placeholder='&#xF002; Search...' id="se" onkeyup="fd()">
 			</div>
 			 <?php } ?>
 	  <div style="float: right;">
@@ -344,7 +345,7 @@
 						echo "No faculty found in the system";						
 					}
 					echo '<nav aria-label="...">
-					  <ul class="pagination justify-content-center">
+					  <ul id="pagin" class="pagination justify-content-center">
 						<li class="page-item ">
 						  <a class="page-link" href="faculty.php?page='.($prev-1).'" tabindex="-1">Previous</a>
 						</li>';

@@ -61,6 +61,14 @@
 		#tbc>tbody>tr:hover{
 			background-color:#222;
 		}
+		#pagin li a{
+			background-color:#1D9E74;
+			color:white;
+			border-color:black;
+		}
+		#pagin li.active a{
+			background-color:#2e6da4;
+		}
 		</style>
 <?php }
 	}
@@ -80,6 +88,11 @@ if ( $detect->isMobile() ) {
 }
 body{
 	font-size:11px;
+}
+input#se{
+	width:80px;
+	font-size:11px;
+	margin-left:-40px;
 }
  <?php
 	if(isset($_SESSION['lang'])){
