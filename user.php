@@ -295,7 +295,16 @@
 								  echo '<td class="hide1">'.$row[$i]["username"].'</td>';
 								   if (!$detect->isMobile() ) {
 									  echo '<td>'.$password.'</td>';
-									  echo '<td>'.$row[$i]["type"].'</td>';
+									  if($row[$i]['type']==1){
+										  $type="Admin";
+									  }
+									  else if($row[$i]['type']==2){
+										  $type="Student";
+									  }
+									  else if($row[$i]['type']==3){
+										  $type="Faculty";
+									  }
+									  echo '<td>'.$type.'</td>';
 									  echo '<td>'.$row[$i]["date_created"].'</td>';
 								   }
 								  echo '<td id="status'.$row[$i]["id"].'">'.($row[$i]["is_active"]=="1"?'<i class="fa fa-check-square-o" aria-hidden="true" style="font-size:20px"></i>':'<i class="fa fa-minus-square-o" aria-hidden="true" style="font-size:20px; color:red"></i>').'</td>';
