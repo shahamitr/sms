@@ -1,6 +1,8 @@
-<?php require("session.php");?>
+<?php 
+require('../common/tableConst.php');
+require(SESS);
+?>
 <?php
-	require('tableConst.php');
 	require(USM);
 	$error=false;
 	if(isset($_GET['IN'])||isset($_GET['Ac'])||isset($_GET['num'])){
@@ -31,7 +33,7 @@
 	<title>Dashboard - User Master</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="student.js"></script>
+	<script src="../student.js"></script>
 	<?php require(ADMIN); ?>
 
 	<style>
@@ -174,7 +176,7 @@
 			 <?php } ?>
 	  <div style="float: right;">
 	  		<button type="button" class="btn btn-primary" onClick='location.href="user.php"'><?php echo $common['View']?></button>
-			<button type="button" class="btn btn-success" onClick='location.href="add.php?type=user"'><?php echo $common['Add']?></button>
+			<button type="button" class="btn btn-success" onClick='location.href="../Model/add.php?type=user"'><?php echo $common['Add']?></button>
 	  </div>
 
 
@@ -194,7 +196,7 @@
 						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
 							echo '<div class="card">
-							  <img src="images/img_avatar.png" alt="Avatar" style="width:100%">
+							  <img src="../images/img_avatar.png" alt="Avatar" style="width:100%">
 							  <div class="card_container">
 								<h4><b>'.$row["username"].'</b></h4>
 								<p>Architect & Engineer</p>
@@ -204,7 +206,7 @@
 							?>
 						
 						<div class="col-md-5">						
-							<form action="process_user.php" method="post">
+							<form action="../Controller/process_user.php" method="post">
 								<input type="hidden" name="action" value="<?php echo $_GET['action'];?>"/>
 								<input type="hidden" name="id" value="<?php echo $_GET['id'];?>"/>
 								<div class="form-group">
@@ -294,7 +296,7 @@
 								  echo '<th scope="row">'.$u.'</th>';
 								  echo '<td class="hide1">'.$row[$i]["username"].'</td>';
 								   if (!$detect->isMobile() ) {
-									  echo '<td>'.$password.'</td>';
+									  echo '<td>'.substr($password,0,6).'*********</td>';
 									  if($row[$i]['type']==1){
 										  $type="Admin";
 									  }
@@ -428,7 +430,7 @@ function myFunction() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
     var queryString = window.location.search;
 	if(queryString=="")queryString = "?page=1";
-  setTimeout(function(){ location.href="user.php"+queryString }, 2000);
+  setTimeout(function(){ location.href="user.php" }, 2000);
 }
 myFunction();
 function myFunction1() {

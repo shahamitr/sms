@@ -1,6 +1,8 @@
-<?php require("session.php");?>
+<?php 
+require('../common/tableConst.php');
+require(SESS);?>
 <?php
-	require('tableConst.php');
+	
 	require(CONNECT);
 ?>
 <!DOCTYPE html>
@@ -33,8 +35,8 @@
 </head>
 <body>
 
-<?php require('navbar_profile.php') ?>
-	<?php require("sidemenu_profile.php"); ?>
+<?php require('../common/navbar_profile.php') ?>
+	<?php require("../common/sidemenu_profile.php"); ?>
 	
     <div class="col-sm-8 text-left"> 
       <p>Your Profile</p>
@@ -44,7 +46,7 @@
 				$name = $_SESSION['username']; 
 			}
 			echo '<div class="card">
-					<img src="images/img_avatar.png" alt="Avatar" style="width:100%">
+					<img src="../images/img_avatar.png" alt="Avatar" style="width:100%">
 						<div class="card_container">
 							<h4><b>'.$name.'</b></h4>
 							<p>Architect & Engineer</p>

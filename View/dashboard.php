@@ -1,6 +1,7 @@
 <?php 
-	require("session.php");
-	require('tableConst.php');
+	require('../common/tableConst.php');
+	require(SESS);
+	
 	require(STUM);
 	$stmt ="This dashboard will give you infromation about all students and faculty of Arena Animation.";
 	$totalS="Total Students In System";

@@ -1,19 +1,12 @@
-<?php require("session.php");?>
+<?php 
+require('../common/tableConst.php');
+require(SESS);?>
 <?php
-	require('tableConst.php');
+	
 	require(STUM);
 ?>
 <?php
-	if(isset($_SESSION['lang'])){
-		if($_SESSION['lang']=='fr'){
-			require('lang.php');
-		}
-		else{
-			require('eng.php');
-		}
-	}else{
-			require('eng.php');
-		}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,10 +37,10 @@
 
 </head>
 <body>
-	<?php require('navbar_profile.php') ?>
+	<?php require('../common/navbar_profile.php') ?>
 <div class="container-fluid text-center">    
   <div class="row content">
-    <?php  require('sidemenu_profile.php') ?>
+    <?php  require('../common/sidemenu_profile.php') ?>
     <div class="col-sm-8 text-left"> 
       <h3><?php echo $student['head']?></h3>
 	  
@@ -64,11 +57,11 @@
 					
 					$result = getStudentByCondition($where);
 					$student_index = 0;
-					if($result->num_rows === 1) {
-						$row = mysqli_fetch_assoc($result);
+					if($result->rowCount() === 1) {
+						$row =$result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
 							echo '<div class="card">
-							  <img src="images/img_avatar.png" alt="Avatar" style="width:100%">
+							  <img src="../images/img_avatar.png" alt="Avatar" style="width:100%">
 							  <div class="card_container">
 								<h4><b>'.$row["name"].' '.$row["surname"].'</b></h4>
 								<p>Architect & Engineer</p>
@@ -80,9 +73,9 @@
 							
 							<?php
 						
-					} else if($result->num_rows > 0) {
+					} else if($result->rowCount() > 0) {
 						
-						echo '<table class="table table-hover record_table">
+						echo '<table id="tbc" class="table table-hover record_table">
 							  <thead>
 								<tr>
 								  <th scope="col">#</th>
@@ -98,7 +91,7 @@
 								</tr>
 							  </thead><tbody>';
 					
-						while($row = mysqli_fetch_assoc($result)){
+						while($row = $result->fetch()){
 							
 								echo '<tr>';
 								  echo '<th scope="row">'.++$student_index.'</th>';

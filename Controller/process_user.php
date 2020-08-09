@@ -1,17 +1,9 @@
 <?php 
-require("session.php");
-require('tableConst.php');
+require('../common/tableConst.php');
+require(SESS);
+
 require(USM);
-if(isset($_SESSION['lang'])){
-		if($_SESSION['lang']=='fr'){
-			require('lang.php');
-		}
-		else{
-			require('eng.php');
-		}
-	}else{
-			require('eng.php');
-		}
+require(ADMIN);
 if($_POST){
 	$action = $_POST['action'];
 	$id = $_POST['id'];
@@ -36,5 +28,5 @@ if($_POST){
 		$result = InactiveUser($status, $id);
 	}
 } else {
-	header('Location: index.php');
+	header('Location: '.INDEX);
 }

@@ -1,6 +1,6 @@
 <?php 
-	require("session.php");
-	require('tableConst.php');
+	require('../common/tableConst.php');
+	require(SESS);
 	require(STUM);
 	
 	$error=false;
@@ -27,16 +27,7 @@
 	}
 ?>
 <?php
-	if(isset($_SESSION['lang'])){
-		if($_SESSION['lang']=='fr'){
-			require('lang.php');
-		}
-		else{
-			require('eng.php');	
-		}
-	}else{
-			require('eng.php');
-		}
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +35,7 @@
 	<title>Dashboard - Student Master</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="student.js"></script>
+	<script src="../student.js"></script>
 
 	<?php require(ADMIN); ?>
 
@@ -216,7 +207,7 @@
 	  <?php } ?>
 	  <div style="float: right;">
 		<button type="button" class="btn btn-primary" onClick='location.href="student.php"'><?php echo $common['View']?></button>
-		<button type="button" class="btn btn-success" onClick='location.href="add.php?type=student"'><?php echo $common['Add']?></button>
+		<button type="button" class="btn btn-success" onClick='location.href="../Model/add.php?type=student"'><?php echo $common['Add']?></button>
 	  </div>
 
 		<?php
@@ -236,7 +227,7 @@
 						$row = $result->fetch();
 						if(isset($_GET['action']) && $_GET['action']=="view"){
 							echo '<div class="card">
-							  <img src="images/img_avatar.png" alt="Avatar" style="width:100%">
+							  <img src="../images/img_avatar.png" alt="Avatar" style="width:100%">
 							  <div class="card_container">
 								<h4><b>'.$row["name"].' '.$row["surname"].'</b></h4>
 								<p>Architect & Engineer</p>
@@ -246,7 +237,7 @@
 							?>
 						
 						<div class="col-md-5">						
-							<form action="process_student.php" method="post">
+							<form action="../Controller/process_student.php" method="post">
 								<input type="hidden" name="action" value="<?php echo $_GET['action'];?>"/>
 								<input type="hidden" name="id" value="<?php echo $_GET['id'];?>"/>
 								<div class="form-group">
@@ -444,7 +435,7 @@ function myFunction() {
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
   var queryString = window.location.search;
 	if(queryString=="")queryString = "?page=1";
-  setTimeout(function(){ location.href="student.php"+queryString }, 2000);
+  setTimeout(function(){ location.href="student.php"}, 2000);
 }
 myFunction();
 function myFunction1() {

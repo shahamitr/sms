@@ -1,6 +1,9 @@
-<?php require("session.php");?>
 <?php
-	require('tableConst.php');
+require('../common/tableConst.php');
+ require(SESS);
+ ?>
+<?php
+	
 	require(CONNECT);
 ?>
 <?php 
@@ -34,8 +37,8 @@
 </head>
 <body>
 
-<?php require("navbar_profile.php") ?>
-	<?php require("sidemenu_profile.php"); ?>
+<?php require("../common/navbar_profile.php") ?>
+	<?php require("../common/sidemenu_profile.php"); ?>
 	
 		  <div class="col-sm-8 text-left"> 
       <p><?php echo $stmt?></p>
@@ -45,13 +48,13 @@
 			$student_count = 0;
 			$sql = "select count(*) as student_count from student_info";
 			$result = $conn->query($sql);
-			$data = mysqli_fetch_assoc($result);
+			$data = $result->fetch();
 			$student_count = $data['student_count'];
 		?>
 		
 	  <br>
      <h3><?php echo $totalS?></h3>
-      <p><?php echo $student_count;?> <?php echo $student1 ?>,  <a href="student.php"><?php echo $msg?></a></p>
+      <p><?php echo $student_count;?> <?php echo $student1 ?>,  <a href="student_record.php"><?php echo $msg?></a></p>
 	  <br>
 	  <br>
 	  </div>

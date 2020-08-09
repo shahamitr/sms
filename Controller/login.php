@@ -1,5 +1,5 @@
 <?php
-	require('tableConst.php');
+	require('../common/tableConst.php');
 	require(CONNECT);
 	
 	
@@ -26,30 +26,30 @@
 				$sql = "update ".USER." set last_login = NOW() where id=".$id." limit 1";
 				$result = $conn->query($sql);
 				if($row['type']==2){
-					header('Location: Student_profile.php');
+					header('Location: ../View/Student_profile.php');
 				}
 				else if($row['type']==3){
-					header('Location: faculty_profile.php');
+					header('Location: ../View/faculty_profile.php');
 				}
 				else{
 					//update will not return count
 					if($result){
 						
-						header('Location: dashboard.php');
+						header('Location: '.DASH.'');
 						
 					} else {
-						header('Location: index.php?error=contact your administrator');
+						header('Location: '.INDEX.'?error=contact your administrator');
 					}
 				}
 
 			} else {
-				header('Location: index.php?error=Invalid credentials');
+				header('Location: '.INDEX.'?error=Invalid credentials');
 			}
 			exit;
 		} else {
-			header('Location: index.php?error=Invalid credentials');
+			header('Location: '.INDEX.'.?error=Invalid credentials');
 		}
 	} else {
-		header('Location: index.php?error=Invalid credentials');
+		header('Location: '.INDEX.'.?error=Invalid credentials');
 	}
 ?>

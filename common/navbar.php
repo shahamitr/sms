@@ -29,26 +29,26 @@
 		$basename = basename($_SERVER['SCRIPT_NAME']);
 		if($basename == "dashboard.php"){
 			$home_class = 'class="active"';
-		}else if($basename == STU || basename($_SERVER['REQUEST_URI']) == ADD."?type=student"){
+		}else if($basename == 'student.php' || basename($_SERVER['REQUEST_URI']) == ADD."?type=student"){
 			$student_class = 'class="active"';
-		}else if($basename == FACUL || basename($_SERVER['REQUEST_URI']) == ADD."?type=faculty"){
+		}else if($basename == 'faculty.php' || basename($_SERVER['REQUEST_URI']) == ADD."?type=faculty"){
 			$faculty_class = 'class="active"';
 		}else if($basename == "contact.php"  ){
 			$contact_class = 'class="active"';
-		}else if($basename == US || basename($_SERVER['REQUEST_URI']) == ADD."?type=user"){
+		}else if($basename == 'user.php' || basename($_SERVER['REQUEST_URI']) == ADD."?type=user"){
 				$user_class = 'class="active"';
 		}
 	  ?>	
       <ul id="navv"  class="nav navbar-nav">
-        <li <?php echo $home_class; ?> ><a href="dashboard.php"><?php echo $nav['home']?></a></li>
+        <li <?php echo $home_class; ?> ><a href="../View/dashboard.php"><?php echo $nav['home']?></a></li>
 		
-        <li <?php echo $student_class; ?>><a href="student.php"><?php echo $nav['Students']?></a></li>
-        <li <?php echo $faculty_class; ?>><a href="faculty.php"><?php echo $nav['Faculty']?></a></li>
-		<li <?php echo $user_class; ?>><a href="user.php"><?php echo $nav['User']?></a></li>
+        <li <?php echo $student_class; ?>><a href="../View/student.php"><?php echo $nav['Students']?></a></li>
+        <li <?php echo $faculty_class; ?>><a href="../View/faculty.php"><?php echo $nav['Faculty']?></a></li>
+		<li <?php echo $user_class; ?>><a href="../View/user.php"><?php echo $nav['User']?></a></li>
         <li <?php echo $contact_class; ?>><a href="#">Contact</a></li>
       </ul>
       <ul  class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">
+        <li><a href="../common/logout.php">
 			<?php 
 			if(isset($_SESSION['username'])){
 				echo $nav['Welcome']." , ".$_SESSION['username']; 

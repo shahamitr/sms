@@ -1,5 +1,5 @@
 <?php 
-require('tableConst.php');
+require('../common/tableConst.php');
 require(CONNECT);
 
 function getAllStudent(){

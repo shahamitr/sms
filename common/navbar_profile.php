@@ -2,18 +2,9 @@
 	require('tableConst.php');
 ?>
 <?php
-	if(isset($_SESSION['lang'])){
-		if($_SESSION['lang']=='fr'){
-			require('lang.php');
-		}
-		else{
-			require('eng.php');
-		}
-	}else{
-			require('eng.php');
-		}
+	require(ADMIN);
 ?>
-<nav class="navbar navbar-inverse">
+<nav id="navbar1" class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -21,7 +12,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">SMS</a>
+      <a class="navbar-brand" id="nav-head" href="#">SMS</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
 	  <?php
@@ -40,7 +31,7 @@
 		}
 	  ?>	
 	  <?php if($basename == "dashboard.php"){
-				$href="dashboard.php";
+				$href="../View/dashboard.php";
 			} 
 			else if($basename == "faculty_profile.php" || $basename == "student_record.php" || $basename == "faculty_personal_profile.php" ){
 				$href="faculty_profile.php";
@@ -52,16 +43,16 @@
 				$style = "style='display:none'";
 			}
 	  ?>
-      <ul class="nav navbar-nav">
+      <ul id="navv" class="nav navbar-nav">
         <li <?php echo $home_class; ?> ><a href="<?php echo $href?>"><?php echo $nav['home']?></a></li>
 		
-			<li <?php echo $style?> <?php echo $student_class; ?>><a href="student_record.php"><?php echo $nav['Students']?></a></li>
+			<li <?php echo $style?> <?php echo $student_class; ?>><a href="../View/student_record.php"><?php echo $nav['Students']?></a></li>
 			<li <?php echo $style?> <?php echo $faculty_class; ?>><a href="<?php echo $href2?>"><?php echo $nav['Faculty']?></a></li>
 			<li <?php echo $contact_class; ?>><a href="#">Contact</a></li>
 		
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="logout.php">
+        <li><a href="../common/logout.php">
 			<?php 
 			if(isset($_SESSION['username'])){
 				echo $nav['Welcome']." , ".$_SESSION['username'];			}

@@ -18,7 +18,7 @@ function inactiveStudent(id, action) {
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_student.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_student.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
   }
 }
@@ -42,7 +42,7 @@ function inactiveFaculty(id, action) {
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_faculty.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_faculty.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
   }
 }
@@ -66,7 +66,7 @@ function inactiveUser(id, action) {
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_user.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_user.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
   }
 }
@@ -89,7 +89,7 @@ function AllFacultyStatus(id,action){
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_faculty.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_faculty.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
 }
 function DeleteFaculty(id){
@@ -103,7 +103,7 @@ function DeleteFaculty(id){
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_faculty.php?id=" + id + "&action=delete", true);
+    xmlhttp.open("GET", "../Controller/process_faculty.php?id=" + id + "&action=delete", true);
 	//xmlhttp.open("GET","faculty.php?message=Faculty Data Deleted",true);
     xmlhttp.send();
 }
@@ -128,7 +128,7 @@ function AllUserStatus(id,action){
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_user.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_user.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
 }
 function DeleteUser(id){
@@ -142,7 +142,7 @@ function DeleteUser(id){
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_user.php?id=" + id + "&action=delete", true);
+    xmlhttp.open("GET", "../Controller/process_user.php?id=" + id + "&action=delete", true);
     xmlhttp.send();
 }
 function updateStatusAll(id, action) {
@@ -167,7 +167,7 @@ function updateStatusAll(id, action) {
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_student.php?id=" + id + "&action="+action, true);
+    xmlhttp.open("GET", "../Controller/process_student.php?id=" + id + "&action="+action, true);
     xmlhttp.send();
 }
 function DeleteStudent(id){
@@ -181,6 +181,6 @@ function DeleteStudent(id){
 		document.getElementById('loader').style.display = 'block';  
 	  }
     };
-    xmlhttp.open("GET", "process_student.php?id=" + id + "&action=delete", true);
+    xmlhttp.open("GET", "../Controller/process_student.php?id=" + id + "&action=delete", true);
     xmlhttp.send();
 }

@@ -1,6 +1,7 @@
 <?php
+require('common/tableConst.php');
 	session_start();
-	require('tableConst.php');
+	
 	$heading = "STUDENT LOGIN";
 	$lang ="Language";
 	$user ="User name";
@@ -46,7 +47,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<?php require(HEADING); ?>
+	<?php require('header.php'); ?>
 
 <style>
 	#active{
@@ -69,7 +70,7 @@
 				<span class="login100-form-title p-b-41">
 					<?php echo $heading?>
 				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5" action="login.php" method="post">
+				<form class="login100-form validate-form p-b-33 p-t-5" action="Controller/login.php" method="post">
 
 					<div style="color:red;font-size:14px;text-align:center;"><?php if(isset($_GET['error'])) echo $_GET['error']; ?></div>	
 					 <div class="col-md-12 school-options-dropdown text-center">
@@ -129,7 +130,7 @@
 
 	<div id="dropDownSelect1"></div>
 
-	<?php require(FOOTER); ?>
+	<?php require('footer.php'); ?>
 
 </body>
 </html>

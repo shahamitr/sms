@@ -1,18 +1,11 @@
-<?php require("session.php");?>
 <?php
-	if(isset($_SESSION['lang'])){
-		if($_SESSION['lang']=='fr'){
-			require('lang.php');
-		}
-		else{
-			require('eng.php');
-		}
-	}else{
-			require('eng.php');
-		}
+	require('../common/tableConst.php');
+	require(SESS);
+?>
+<?php
 ?>
 <?php 
-require('tableConst.php');
+require(ADMIN);
 require(CONNECT);
 require(STUM);
 require(FACM);
@@ -25,7 +18,7 @@ require(USM);
 				$type = $_POST['type'];
 				$result =addUser($username,$password,$type);
 				
-				header('Location: user.php?message='.$nav['User']." ".$message['added']);
+				header('Location: '.US.'?message='.$nav['User']." ".$message['added']);
 				
 			} elseif($_GET['type']=="faculty"){
 				$name= $_POST['name'];
@@ -45,7 +38,7 @@ require(USM);
 				$password = $username;
 				$type=3;
 				addUser($username,$password,$type);
-				header('Location: faculty.php?message='.$nav['Faculty']." ".$message['added']);
+				header('Location: '.FACUL.'?message='.$nav['Faculty']." ".$message['added']);
 			} else if($_GET['type']=="student"){
 				$name= $_POST['name'];
 				$surname= $_POST['surname'];
@@ -61,7 +54,7 @@ require(USM);
 				$password = $username;
 				$type=2;
 				addUser($username,$password,$type);
-				header('Location: student.php?message='.$nav['Student']." ".$message['added']);
+				header('Location: '.STU.'?message='.$nav['Student']." ".$message['added']);
 			}
 		}
 	}
@@ -74,7 +67,7 @@ require(USM);
 	<title>Dashboard - Add</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="js/cities.js"></script>
+	<script src="../js/cities.js"></script>
 
 	<?php require(ADMIN); ?>
 
@@ -194,7 +187,7 @@ if($_GET){
 
 } 
  else {
-	header('Location: index.php');
+	header('Location: '.INDEX);
  }
 ?>
     
